@@ -13,7 +13,7 @@ import (
 func SeedSwapCmd(seedConfig config.SeedConfig) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "start-swap-with-signature-authenticator-flow",
-		Short: "this command goes through a series of tasks to test the SignatureVerificationAuthenticator flow",
+		Short: "this command creates SignatureVerificationAuthenticator and swaps in a pool",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			conn := seedConfig.GRPCConnection
@@ -21,6 +21,7 @@ func SeedSwapCmd(seedConfig config.SeedConfig) *cobra.Command {
 			OsmoDenom := seedConfig.DenomMap["OsmoDenom"]
 			AtomIBCDenom := seedConfig.DenomMap["AtomIBCDenom"]
 			osmoAtomClPool := uint64(1400)
+			selectedAuthenticator := []int32{1}
 
 			alice := seedConfig.Keys[2]
 			bob := seedConfig.Keys[3]
@@ -37,12 +38,13 @@ func SeedSwapCmd(seedConfig config.SeedConfig) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			err = pm.SwapTokens(
+			err = pm.SwapTokensWithLastestAuthenticator(
 				conn,
 				encCfg,
 				seedConfig.ChainID,
 				alice,
 				bob,
+				selectedAuthenticator,
 				OsmoDenom,
 				AtomIBCDenom,
 				osmoAtomClPool,

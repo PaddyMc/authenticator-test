@@ -16,17 +16,19 @@ import (
 	//govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/osmosis-labs/osmosis/osmomath"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v21/x/authenticator/types"
 	poolmanagertypes "github.com/osmosis-labs/osmosis/v21/x/poolmanager/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
 
-func SwapTokens(
+func SwapTokensWithLastestAuthenticator(
 	conn *grpc.ClientConn,
 	encCfg params.EncodingConfig,
 	chainID string,
 	fromKey *secp256k1.PrivKey,
 	signerKey *secp256k1.PrivKey,
+	selectedAuthenticator []int32,
 	fromToken string,
 	toToken string,
 	poolId uint64,
@@ -43,11 +45,20 @@ func SwapTokens(
 	txClient := txtypes.NewServiceClient(conn)
 	ac := auth.NewQueryClient(conn)
 	bankClient := banktypes.NewQueryClient(conn)
+	authenticatorClient := authenticatortypes.NewQueryClient(conn)
 
 	// decode the test private keys
 	priv1 := fromKey
 	//priv2 := toKey
 	accAddress := sdk.AccAddress(priv1.PubKey().Address())
+
+	allAuthenticatorsResp, err := authenticatorClient.GetAuthenticators(
+		context.Background(),
+		&authenticatortypes.GetAuthenticatorsRequest{Account: accAddress.String()},
+	)
+	if err != nil {
+		return err
+	}
 
 	balanceAtom, err := bankClient.Balance(
 		context.Background(),
@@ -79,7 +90,7 @@ func SwapTokens(
 		txClient,
 		chainID,
 		[]sdk.Msg{swapTokenMsg},
-		[]int32{},
+		[]int32{int32(len(allAuthenticatorsResp.AccountAuthenticators) - 1)},
 	)
 	if err != nil {
 		return err

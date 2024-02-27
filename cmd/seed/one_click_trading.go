@@ -26,6 +26,10 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 			LuncIBCDenom := seedConfig.DenomMap["LuncIBCDenom"]
 			osmoAtomClPool := uint64(1400)
 			luncOsmoBalancerPool := uint64(561)
+			selectedAuthenticator := []int32{1}
+
+			//spendLimitContractAddress := "osmo1kr95hg7c2d0u40fa379nry94z3g3tfg7r37cvm3ulr2qwackh98qh3yfsn"
+			spendLimitContractAddress := "osmo1lxmzejg7en07e0llnsc2jveymuulxjedm04j0lwgfujzrpst3gysvlf7rx"
 
 			log.Printf("Starting spend limit authenticator flow")
 			log.Printf("Adding spend limit authenticator")
@@ -35,18 +39,20 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 				seedConfig.ChainID,
 				alice,
 				bob,
+				spendLimitContractAddress,
 			)
 			if err != nil {
 				return err
 			}
 
 			log.Printf("Starting swap flow")
-			err = pm.SwapTokens(
+			err = pm.SwapTokensWithLastestAuthenticator(
 				conn,
 				encCfg,
 				seedConfig.ChainID,
 				alice,
 				bob,
+				selectedAuthenticator,
 				OsmoDenom,
 				AtomIBCDenom,
 				osmoAtomClPool,
@@ -58,12 +64,13 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 			}
 
 			log.Printf("Starting swappping to Lunc, should fail")
-			err = pm.SwapTokens(
+			err = pm.SwapTokensWithLastestAuthenticator(
 				conn,
 				encCfg,
 				seedConfig.ChainID,
 				alice,
 				bob,
+				selectedAuthenticator,
 				OsmoDenom,
 				LuncIBCDenom,
 				luncOsmoBalancerPool,
@@ -75,16 +82,16 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 			}
 
 			log.Printf("Removing spend limit authenticator")
-			err = as.RemoveLatestAuthenticator(
-				conn,
-				encCfg,
-				seedConfig.ChainID,
-				alice,
-				alice,
-			)
-			if err != nil {
-				return err
-			}
+			//			err = as.RemoveLatestAuthenticator(
+			//				conn,
+			//				encCfg,
+			//				seedConfig.ChainID,
+			//				alice,
+			//				alice,
+			//			)
+			//			if err != nil {
+			//				return err
+			//			}
 
 			return nil
 		},

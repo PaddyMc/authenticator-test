@@ -12,7 +12,7 @@ import (
 func SeedRemoveAllAuthenticators(seedConfig config.SeedConfig) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "start-remove-all-authenticators-flow",
-		Short: "this command goes through a series of tasks to test the one click trading flow",
+		Short: "this command removes all the authenticators for an account",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			conn := seedConfig.GRPCConnection

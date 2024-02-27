@@ -29,6 +29,7 @@ func CreateOneClickTradingAccount(
 	chainID string,
 	parentKey *secp256k1.PrivKey,
 	tradingKey *secp256k1.PrivKey,
+	spendLimitContractAddress string,
 ) error {
 	// set up all clients
 	txClient := txtypes.NewServiceClient(conn)
@@ -37,9 +38,6 @@ func CreateOneClickTradingAccount(
 
 	priv1 := parentKey
 	priv2 := tradingKey
-
-	//spendLimitContractAddress := "osmo1kr95hg7c2d0u40fa379nry94z3g3tfg7r37cvm3ulr2qwackh98qh3yfsn"
-	spendLimitContractAddress := "osmo1lxmzejg7en07e0llnsc2jveymuulxjedm04j0lwgfujzrpst3gysvlf7rx"
 
 	accAddress := sdk.AccAddress(priv1.PubKey().Address())
 	//accAddress2 := sdk.AccAddress(priv2.PubKey().Address())
@@ -54,12 +52,6 @@ func CreateOneClickTradingAccount(
 
 	log.Println("Querying authenticators for account", accAddress.String())
 	log.Println("Number of authenticators:", len(allAuthenticatorsResp.AccountAuthenticators))
-
-	//	addAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
-	//		Sender: accAddress.String(),
-	//		Type:   "SignatureVerificationAuthenticator",
-	//		Data:   priv1.PubKey().Bytes(),
-	//	}
 
 	// initialise spend limit authenticator
 	initDataPrivKey0 := authenticator.InitializationData{
