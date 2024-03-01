@@ -36,6 +36,8 @@ func SetUp(
 	// Decode and add keys to the slice
 	for _, keyHex := range keysHex {
 		bz, err := hex.DecodeString(keyHex)
+		fmt.Println(len(bz))
+		fmt.Println(bz)
 		if err != nil {
 			fmt.Printf("Error decoding hex string: %v\n", err)
 			continue

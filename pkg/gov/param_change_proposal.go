@@ -56,6 +56,7 @@ func ChangeMaxAuthenticatorGas(
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
 		[]cryptotypes.PrivKey{priv1},
 		[]cryptotypes.PrivKey{priv1},
+		make(map[int][]cryptotypes.PrivKey),
 		encCfg,
 		ac,
 		txClient,
@@ -76,6 +77,7 @@ func ChangeMaxAuthenticatorGas(
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
 		[]cryptotypes.PrivKey{priv1},
 		[]cryptotypes.PrivKey{priv1},
+		make(map[int][]cryptotypes.PrivKey),
 		encCfg,
 		ac,
 		txClient,

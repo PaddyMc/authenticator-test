@@ -16,6 +16,7 @@ import (
 func SignAndBroadcastAuthenticatorMsgMultiSigners(
 	senderPrivKeys []cryptotypes.PrivKey,
 	signerPrivKeys []cryptotypes.PrivKey,
+	cosignerPrivKeys map[int][]cryptotypes.PrivKey,
 	encCfg params.EncodingConfig,
 	ac authtypes.QueryClient,
 	txClient txtypes.ServiceClient,
@@ -61,6 +62,7 @@ func SignAndBroadcastAuthenticatorMsgMultiSigners(
 		accSeqs,
 		senderPrivKeys,
 		signerPrivKeys,
+		cosignerPrivKeys,
 		selectedAuthenticators,
 	)
 
@@ -95,6 +97,7 @@ func SignAndBroadcastAuthenticatorMsgMultiSigners(
 			log.Println(tx.TxResponse)
 		}
 	}
+	log.Println("Gas Used:", tx.TxResponse.GasUsed)
 
 	return nil
 }

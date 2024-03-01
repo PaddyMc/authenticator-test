@@ -1,6 +1,7 @@
 package chain
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"time"
@@ -39,6 +40,7 @@ func SignMsg(
 		[]uint64{accSeq},
 		[]cryptotypes.PrivKey{priv1},
 		[]cryptotypes.PrivKey{priv1},
+		make(map[int][]cryptotypes.PrivKey),
 		[]int32{},
 	)
 	if err != nil {
@@ -57,6 +59,7 @@ func SignAuthenticatorMsg(
 	chainID string,
 	accNums, accSeqs []uint64,
 	signers, signatures []cryptotypes.PrivKey,
+	cosigners map[int][]cryptotypes.PrivKey,
 	selectedAuthenticators []int32,
 ) ([]byte, error) {
 	sigs := make([]signing.SignatureV2, len(signers))
@@ -122,11 +125,41 @@ func SignAuthenticatorMsg(
 		if err != nil {
 			return nil, err
 		}
-		sig, err := p.Sign(signBytes)
-		if err != nil {
-			return nil, err
+
+		// Assuming cosigners is already initialized and populated
+		var compoundSignatures [][]byte
+		if value, exists := cosigners[1]; exists {
+			for _, item := range value {
+				sig, err := item.Sign(signBytes)
+				if err != nil {
+					return nil, err
+				}
+				compoundSignatures = append(compoundSignatures, sig)
+			}
 		}
-		sigs[i].Data.(*signing.SingleSignatureData).Signature = sig
+
+		// Marshalling the array of SignatureV2 for compound signatures
+		if len(compoundSignatures) >= 1 {
+			compoundSigData, err := json.Marshal(compoundSignatures)
+			if err != nil {
+				return nil, err
+			}
+			sigs[i] = signing.SignatureV2{
+				PubKey: signers[i].PubKey(),
+				Data: &signing.SingleSignatureData{
+					SignMode:  signMode,
+					Signature: compoundSigData,
+				},
+				Sequence: accSeqs[i],
+			}
+		} else {
+			sig, err := p.Sign(signBytes)
+			if err != nil {
+				return nil, err
+			}
+			sigs[i].Data.(*signing.SingleSignatureData).Signature = sig
+		}
+
 		err = txBuilder.SetSignatures(sigs...)
 		if err != nil {
 			return nil, err

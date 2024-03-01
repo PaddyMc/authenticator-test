@@ -3,6 +3,7 @@ package seed
 import (
 	"log"
 
+	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	"github.com/spf13/cobra"
 
 	as "github.com/osmosis-labs/autenticator-test/pkg/authenticator"
@@ -21,6 +22,7 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 
 			alice := seedConfig.Keys[2]
 			bob := seedConfig.Keys[3]
+			cosigners := make(map[int][]cryptotypes.PrivKey)
 			OsmoDenom := seedConfig.DenomMap["OsmoDenom"]
 			AtomIBCDenom := seedConfig.DenomMap["AtomIBCDenom"]
 			LuncIBCDenom := seedConfig.DenomMap["LuncIBCDenom"]
@@ -29,7 +31,11 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 			selectedAuthenticator := []int32{1}
 
 			//spendLimitContractAddress := "osmo1kr95hg7c2d0u40fa379nry94z3g3tfg7r37cvm3ulr2qwackh98qh3yfsn"
-			spendLimitContractAddress := "osmo1lxmzejg7en07e0llnsc2jveymuulxjedm04j0lwgfujzrpst3gysvlf7rx"
+			//spendLimitContractAddress := "osmo1lxmzejg7en07e0llnsc2jveymuulxjedm04j0lwgfujzrpst3gysvlf7rx"
+			//spendLimitContractAddress := "osmo1nvz4e7duzmchyk4res6tdlpxpxrl9nps6vl2htlevu0a59chdarsvds5d8"
+			//spendLimitContractAddress := "osmo1mf5dnx0wqv7s4v9r4ykkr7tr249pctjwxs4me5n96tch37p95ccsc3zehq"
+			//spendLimitContractAddress := "osmo133290w5vgjttasqhmqcw2x9g598vg6re8lw0q0jwljlep44xvfhsp04ev8"
+			spendLimitContractAddress := "osmo1x57l2yanux5277kht6udkgdxkkuynv6ndm5836x5ll4hgwcxfhlstmnwp3"
 
 			log.Printf("Starting spend limit authenticator flow")
 			log.Printf("Adding spend limit authenticator")
@@ -52,11 +58,12 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 				seedConfig.ChainID,
 				alice,
 				bob,
+				cosigners,
 				selectedAuthenticator,
 				OsmoDenom,
 				AtomIBCDenom,
 				osmoAtomClPool,
-				1000000,
+				100,
 			)
 			if err != nil {
 				log.Println("error", err.Error())
@@ -70,6 +77,7 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 				seedConfig.ChainID,
 				alice,
 				bob,
+				cosigners,
 				selectedAuthenticator,
 				OsmoDenom,
 				LuncIBCDenom,
@@ -81,17 +89,51 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 				log.Println("error", err.Error())
 			}
 
+			err = pm.SwapTokensWithLastestAuthenticator(
+				conn,
+				encCfg,
+				seedConfig.ChainID,
+				alice,
+				bob,
+				cosigners,
+				selectedAuthenticator,
+				OsmoDenom,
+				AtomIBCDenom,
+				osmoAtomClPool,
+				100,
+			)
+			if err != nil {
+				log.Println("error", err.Error())
+			}
+
+			err = pm.SwapTokensWithLastestAuthenticator(
+				conn,
+				encCfg,
+				seedConfig.ChainID,
+				alice,
+				bob,
+				cosigners,
+				selectedAuthenticator,
+				OsmoDenom,
+				AtomIBCDenom,
+				osmoAtomClPool,
+				100,
+			)
+			if err != nil {
+				log.Println("error", err.Error())
+			}
+
 			log.Printf("Removing spend limit authenticator")
-			//			err = as.RemoveLatestAuthenticator(
-			//				conn,
-			//				encCfg,
-			//				seedConfig.ChainID,
-			//				alice,
-			//				alice,
-			//			)
-			//			if err != nil {
-			//				return err
-			//			}
+			err = as.RemoveLatestAuthenticator(
+				conn,
+				encCfg,
+				seedConfig.ChainID,
+				alice,
+				alice,
+			)
+			if err != nil {
+				return err
+			}
 
 			return nil
 		},

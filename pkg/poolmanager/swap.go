@@ -28,6 +28,7 @@ func SwapTokensWithLastestAuthenticator(
 	chainID string,
 	fromKey *secp256k1.PrivKey,
 	signerKey *secp256k1.PrivKey,
+	cosignersKeys map[int][]cryptotypes.PrivKey,
 	selectedAuthenticator []int32,
 	fromToken string,
 	toToken string,
@@ -85,6 +86,7 @@ func SwapTokensWithLastestAuthenticator(
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
 		[]cryptotypes.PrivKey{fromKey},
 		[]cryptotypes.PrivKey{signerKey},
+		cosignersKeys,
 		encCfg,
 		ac,
 		txClient,

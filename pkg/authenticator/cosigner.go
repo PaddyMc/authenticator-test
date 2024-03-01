@@ -2,11 +2,8 @@ package authenticator
 
 import (
 	"context"
-	"encoding/base64"
 	"encoding/json"
-	"fmt"
 	"log"
-	"time"
 
 	grpc "google.golang.org/grpc"
 
@@ -23,13 +20,12 @@ import (
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
 
-func CreateOneClickTradingAccount(
+func CreateCosignerAccount(
 	conn *grpc.ClientConn,
 	encCfg params.EncodingConfig,
 	chainID string,
 	parentKey *secp256k1.PrivKey,
-	tradingKey *secp256k1.PrivKey,
-	spendLimitContractAddress string,
+	cosignerKey *secp256k1.PrivKey,
 ) error {
 	// set up all clients
 	txClient := txtypes.NewServiceClient(conn)
@@ -37,7 +33,7 @@ func CreateOneClickTradingAccount(
 	authenticatorClient := authenticatortypes.NewQueryClient(conn)
 
 	priv1 := parentKey
-	priv2 := tradingKey
+	priv2 := cosignerKey
 
 	accAddress := sdk.AccAddress(priv1.PubKey().Address())
 	//accAddress2 := sdk.AccAddress(priv2.PubKey().Address())
@@ -56,37 +52,56 @@ func CreateOneClickTradingAccount(
 	// initialise spend limit authenticator
 	initDataPrivKey0 := authenticator.InitializationData{
 		AuthenticatorType: "SignatureVerificationAuthenticator",
+		Data:              priv1.PubKey().Bytes(),
+	}
+
+	initDataPrivKey1 := authenticator.InitializationData{
+		AuthenticatorType: "SignatureVerificationAuthenticator",
 		Data:              priv2.PubKey().Bytes(),
 	}
 
-	// Time limit for spend limits
-	now := time.Now()
-	future := now.Add(time.Hour * 3)
-
-	jsonString := fmt.Sprintf(
-		`{"time_limit": {"end": "%d"}, "reset_period": "day", "limit": "10000"}`, future.UnixNano())
-	encodedParams := base64.StdEncoding.EncodeToString([]byte(jsonString))
-	initDataSpendLimit := authenticator.InitializationData{
-		AuthenticatorType: "CosmwasmAuthenticatorV1",
-		Data: []byte(
-			`{"contract": "` + spendLimitContractAddress + `", "params": "` + encodedParams + `"}`),
-	}
-
-	initDataMessageFilter := authenticator.InitializationData{
+	initDataMessageFilter1 := authenticator.InitializationData{
 		AuthenticatorType: "MessageFilterAuthenticator",
 		Data:              []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
 	}
-	compositeAuthData := []authenticator.InitializationData{
-		initDataPrivKey0,
-		initDataSpendLimit,
-		initDataMessageFilter,
+
+	initDataMessageFilter2 := authenticator.InitializationData{
+		AuthenticatorType: "MessageFilterAuthenticator",
+		Data:              []byte(`{"@type":"/cosmos.bqnk"}`),
 	}
 
-	dataAllOf, err := json.Marshal(compositeAuthData)
+	compositeAuthDataAllOf := []authenticator.InitializationData{
+		initDataPrivKey0,
+		initDataPrivKey1,
+	}
+
+	compositeAuthDataAnyOf := []authenticator.InitializationData{
+		initDataMessageFilter1,
+		initDataMessageFilter2,
+	}
+
+	dataAnyOf, err := json.Marshal(compositeAuthDataAnyOf)
+	initDataAnyOf := authenticator.InitializationData{
+		AuthenticatorType: "AnyOfAuthenticator",
+		Data:              dataAnyOf,
+	}
+
+	dataAllOf, err := json.Marshal(compositeAuthDataAllOf)
+	initDataAllOf := authenticator.InitializationData{
+		AuthenticatorType: "PartitionedAllOfAuthenticator",
+		Data:              dataAllOf,
+	}
+
+	compositeComplex := []authenticator.InitializationData{
+		initDataAnyOf,
+		initDataAllOf,
+	}
+
+	dataCompositeComplex, err := json.Marshal(compositeComplex)
 	addAllOfAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
 		Sender: accAddress.String(),
 		Type:   "AllOfAuthenticator",
-		Data:   dataAllOf,
+		Data:   dataCompositeComplex,
 	}
 
 	log.Println("Adding authenticator for account", accAddress.String(), "first authenticator")

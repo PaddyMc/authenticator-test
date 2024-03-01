@@ -86,6 +86,7 @@ func NewRootCmd() *cobra.Command {
 		seed.SeedCreateOneClickTradingAccount(config),
 		seed.SeedSwapCmd(config),
 		seed.SeedRemoveAllAuthenticators(config),
+		seed.SeedCreateCosigner(config),
 	)
 
 	rootCmd.AddCommand(

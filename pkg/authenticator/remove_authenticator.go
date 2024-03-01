@@ -52,6 +52,7 @@ func RemoveLatestAuthenticator(
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
 		[]cryptotypes.PrivKey{signerKey},
 		[]cryptotypes.PrivKey{signerKey},
+		make(map[int][]cryptotypes.PrivKey),
 		encCfg,
 		ac,
 		txClient,
@@ -68,7 +69,7 @@ func RemoveLatestAuthenticator(
 		return err
 	}
 
-	log.Println("Number of authenticators post:", len(allAuthenticatorsResp.AccountAuthenticators))
+	log.Println("Number of authenticators post:", len(allAuthenticatorsPostResp.AccountAuthenticators))
 	if len(allAuthenticatorsPostResp.AccountAuthenticators) == len(allAuthenticatorsResp.AccountAuthenticators) {
 		log.Println("Error removing spend limit authenticator")
 	} else {

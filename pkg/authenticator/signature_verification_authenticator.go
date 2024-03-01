@@ -57,6 +57,7 @@ func CreateSignatureVerificationAuthenticator(
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
 		[]cryptotypes.PrivKey{signerKey},
 		[]cryptotypes.PrivKey{signerKey},
+		make(map[int][]cryptotypes.PrivKey),
 		encCfg,
 		ac,
 		txClient,
