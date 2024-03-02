@@ -12,8 +12,8 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v21/app/params"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v21/x/authenticator/types"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v23/x/authenticator/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -58,7 +58,7 @@ func RemoveLatestAuthenticator(
 		txClient,
 		chainID,
 		[]sdk.Msg{removeMsg},
-		[]int32{},
+		[]uint64{},
 	)
 
 	allAuthenticatorsPostResp, err := authenticatorClient.GetAuthenticators(

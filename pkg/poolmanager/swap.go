@@ -11,13 +11,13 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v21/app/params"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
 
 	//govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/osmosis-labs/osmosis/osmomath"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v21/x/authenticator/types"
-	poolmanagertypes "github.com/osmosis-labs/osmosis/v21/x/poolmanager/types"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v23/x/authenticator/types"
+	poolmanagertypes "github.com/osmosis-labs/osmosis/v23/x/poolmanager/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -83,6 +83,7 @@ func SwapTokensWithLastestAuthenticator(
 		TokenIn:           sdk.NewCoin(OsmoDenom, osmomath.NewInt(tokenAmount)),
 	}
 
+	authenticatorId := allAuthenticatorsResp.AccountAuthenticators[len(allAuthenticatorsResp.AccountAuthenticators)-1].Id
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
 		[]cryptotypes.PrivKey{fromKey},
 		[]cryptotypes.PrivKey{signerKey},
@@ -92,7 +93,7 @@ func SwapTokensWithLastestAuthenticator(
 		txClient,
 		chainID,
 		[]sdk.Msg{swapTokenMsg},
-		[]int32{int32(len(allAuthenticatorsResp.AccountAuthenticators) - 1)},
+		[]uint64{authenticatorId},
 	)
 	if err != nil {
 		return err

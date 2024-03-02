@@ -16,8 +16,8 @@ import (
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 
-	"github.com/osmosis-labs/osmosis/v21/app/params"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v21/x/authenticator/types"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v23/x/authenticator/types"
 )
 
 // SignMsg signs an sdk.Message with a given private key, account number and account sequence
@@ -41,7 +41,7 @@ func SignMsg(
 		[]cryptotypes.PrivKey{priv1},
 		[]cryptotypes.PrivKey{priv1},
 		make(map[int][]cryptotypes.PrivKey),
-		[]int32{},
+		[]uint64{},
 	)
 	if err != nil {
 		panic(err)
@@ -60,7 +60,7 @@ func SignAuthenticatorMsg(
 	accNums, accSeqs []uint64,
 	signers, signatures []cryptotypes.PrivKey,
 	cosigners map[int][]cryptotypes.PrivKey,
-	selectedAuthenticators []int32,
+	selectedAuthenticators []uint64,
 ) ([]byte, error) {
 	sigs := make([]signing.SignatureV2, len(signers))
 

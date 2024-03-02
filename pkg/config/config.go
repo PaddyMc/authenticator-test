@@ -7,8 +7,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/osmosis-labs/osmosis/v21/app"
-	"github.com/osmosis-labs/osmosis/v21/app/params"
+	"github.com/osmosis-labs/osmosis/v23/app"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
 
 	grpc_chain "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 	grpc "google.golang.org/grpc"
@@ -36,8 +36,6 @@ func SetUp(
 	// Decode and add keys to the slice
 	for _, keyHex := range keysHex {
 		bz, err := hex.DecodeString(keyHex)
-		fmt.Println(len(bz))
-		fmt.Println(bz)
 		if err != nil {
 			fmt.Printf("Error decoding hex string: %v\n", err)
 			continue

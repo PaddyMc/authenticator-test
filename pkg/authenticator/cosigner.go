@@ -13,9 +13,9 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v21/app/params"
-	"github.com/osmosis-labs/osmosis/v21/x/authenticator/authenticator"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v21/x/authenticator/types"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
+	"github.com/osmosis-labs/osmosis/v23/x/authenticator/authenticator"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v23/x/authenticator/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -50,49 +50,49 @@ func CreateCosignerAccount(
 	log.Println("Number of authenticators:", len(allAuthenticatorsResp.AccountAuthenticators))
 
 	// initialise spend limit authenticator
-	initDataPrivKey0 := authenticator.InitializationData{
+	initDataPrivKey0 := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "SignatureVerificationAuthenticator",
 		Data:              priv1.PubKey().Bytes(),
 	}
 
-	initDataPrivKey1 := authenticator.InitializationData{
+	initDataPrivKey1 := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "SignatureVerificationAuthenticator",
 		Data:              priv2.PubKey().Bytes(),
 	}
 
-	initDataMessageFilter1 := authenticator.InitializationData{
+	initDataMessageFilter1 := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "MessageFilterAuthenticator",
 		Data:              []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
 	}
 
-	initDataMessageFilter2 := authenticator.InitializationData{
+	initDataMessageFilter2 := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "MessageFilterAuthenticator",
 		Data:              []byte(`{"@type":"/cosmos.bqnk"}`),
 	}
 
-	compositeAuthDataAllOf := []authenticator.InitializationData{
+	compositeAuthDataAllOf := []authenticator.SubAuthenticatorInitData{
 		initDataPrivKey0,
 		initDataPrivKey1,
 	}
 
-	compositeAuthDataAnyOf := []authenticator.InitializationData{
+	compositeAuthDataAnyOf := []authenticator.SubAuthenticatorInitData{
 		initDataMessageFilter1,
 		initDataMessageFilter2,
 	}
 
 	dataAnyOf, err := json.Marshal(compositeAuthDataAnyOf)
-	initDataAnyOf := authenticator.InitializationData{
+	initDataAnyOf := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "AnyOfAuthenticator",
 		Data:              dataAnyOf,
 	}
 
 	dataAllOf, err := json.Marshal(compositeAuthDataAllOf)
-	initDataAllOf := authenticator.InitializationData{
+	initDataAllOf := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "PartitionedAllOfAuthenticator",
 		Data:              dataAllOf,
 	}
 
-	compositeComplex := []authenticator.InitializationData{
+	compositeComplex := []authenticator.SubAuthenticatorInitData{
 		initDataAnyOf,
 		initDataAllOf,
 	}
@@ -114,7 +114,7 @@ func CreateCosignerAccount(
 		txClient,
 		chainID,
 		[]sdk.Msg{addAllOfAuthenticatorMsg},
-		[]int32{},
+		[]uint64{},
 	)
 
 	allAuthenticatorsPostResp, err := authenticatorClient.GetAuthenticators(

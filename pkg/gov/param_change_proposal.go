@@ -12,7 +12,7 @@ import (
 
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/cosmos/cosmos-sdk/x/params/types/proposal"
-	"github.com/osmosis-labs/osmosis/v21/app/params"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -62,7 +62,7 @@ func ChangeMaxAuthenticatorGas(
 		txClient,
 		chainID,
 		[]sdk.Msg{changeParamMsg},
-		[]int32{},
+		[]uint64{},
 	)
 	if err != nil {
 		return err
@@ -83,7 +83,7 @@ func ChangeMaxAuthenticatorGas(
 		txClient,
 		chainID,
 		[]sdk.Msg{voteMsg},
-		[]int32{},
+		[]uint64{},
 	)
 	if err != nil {
 		return err

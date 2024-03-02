@@ -16,9 +16,9 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v21/app/params"
-	"github.com/osmosis-labs/osmosis/v21/x/authenticator/authenticator"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v21/x/authenticator/types"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
+	"github.com/osmosis-labs/osmosis/v23/x/authenticator/authenticator"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v23/x/authenticator/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -54,7 +54,7 @@ func CreateOneClickTradingAccount(
 	log.Println("Number of authenticators:", len(allAuthenticatorsResp.AccountAuthenticators))
 
 	// initialise spend limit authenticator
-	initDataPrivKey0 := authenticator.InitializationData{
+	initDataPrivKey0 := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "SignatureVerificationAuthenticator",
 		Data:              priv2.PubKey().Bytes(),
 	}
@@ -66,17 +66,17 @@ func CreateOneClickTradingAccount(
 	jsonString := fmt.Sprintf(
 		`{"time_limit": {"end": "%d"}, "reset_period": "day", "limit": "10000"}`, future.UnixNano())
 	encodedParams := base64.StdEncoding.EncodeToString([]byte(jsonString))
-	initDataSpendLimit := authenticator.InitializationData{
+	initDataSpendLimit := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "CosmwasmAuthenticatorV1",
 		Data: []byte(
 			`{"contract": "` + spendLimitContractAddress + `", "params": "` + encodedParams + `"}`),
 	}
 
-	initDataMessageFilter := authenticator.InitializationData{
+	initDataMessageFilter := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "MessageFilterAuthenticator",
 		Data:              []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
 	}
-	compositeAuthData := []authenticator.InitializationData{
+	compositeAuthData := []authenticator.SubAuthenticatorInitData{
 		initDataPrivKey0,
 		initDataSpendLimit,
 		initDataMessageFilter,
@@ -99,7 +99,7 @@ func CreateOneClickTradingAccount(
 		txClient,
 		chainID,
 		[]sdk.Msg{addAllOfAuthenticatorMsg},
-		[]int32{},
+		[]uint64{},
 	)
 
 	allAuthenticatorsPostResp, err := authenticatorClient.GetAuthenticators(

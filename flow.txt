@@ -1,0 +1,183 @@
+2024/03/02 16:41:24 config.go:46: Account:  osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj
+2024/03/02 16:41:24 config.go:46: Account:  osmo1cyyzpxplxdzkeea7kwsydadg87357qnahakaks
+2024/03/02 16:41:24 config.go:46: Account:  osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv
+2024/03/02 16:41:24 config.go:46: Account:  osmo1qwexv7c6sm95lwhzn9027vyu2ccneaqad4w8ka
+2024/03/02 16:41:24 config.go:46: Account:  osmo14fs26kuytz9yml22tvvqq7gkgfk9fss2zyj2jl
+2024/03/02 16:41:24 one_click_trading.go:40: Starting spend limit authenticator flow
+2024/03/02 16:41:24 one_click_trading.go:41: Adding spend limit authenticator
+2024/03/02 16:41:24 one_click_trading.go:53: Querying authenticators for account osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv
+2024/03/02 16:41:24 one_click_trading.go:54: Number of authenticators: 2
+2024/03/02 16:41:24 one_click_trading.go:92: Adding authenticator for account osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv first authenticator
+2024/03/02 16:41:24 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
+2024/03/02 16:41:24 sign_and_broadcast_msg.go:69: Broadcasting...
+2024/03/02 16:41:24 sign_and_broadcast_msg.go:80: Transaction Hash: 1D0DB36DE78C5148BCBF5BF9ECCEAC2071F52B4652F08BBAC0CB960CB7EE3367
+2024/03/02 16:41:30 sign_and_broadcast_msg.go:84: Verifing...
+2024/03/02 16:41:30 sign_and_broadcast_msg.go:95: Transaction Success...
+2024/03/02 16:41:30 sign_and_broadcast_msg.go:100: Gas Used: 176900
+2024/03/02 16:41:30 one_click_trading.go:113: Number of authenticators post: 3
+2024/03/02 16:41:30 one_click_trading.go:117: Added authenticator
+2024/03/02 16:41:30 one_click_trading.go:120: Add authenticator completed.
+2024/03/02 16:41:30 one_click_trading.go:54: Starting swap flow
+2024/03/02 16:41:30 swap.go:38: Starting token swap...
+2024/03/02 16:41:30 swap.go:72: Initial balance of ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2: 95348649
+2024/03/02 16:41:30 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
+2024/03/02 16:41:30 sign_and_broadcast_msg.go:69: Broadcasting...
+2024/03/02 16:41:31 sign_and_broadcast_msg.go:80: Transaction Hash: BAA7A64848873D9D1F2021783C268407687A5BA4071615D625F72D65350C0370
+2024/03/02 16:41:37 sign_and_broadcast_msg.go:84: Verifing...
+2024/03/02 16:41:37 sign_and_broadcast_msg.go:95: Transaction Success...
+2024/03/02 16:41:37 sign_and_broadcast_msg.go:100: Gas Used: 428780
+2024/03/02 16:41:37 swap.go:109: Post-swap balance of ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2: 95348664
+2024/03/02 16:41:37 swap.go:113: Balance of toToken has increased after the swap.
+2024/03/02 16:41:37 swap.go:118: Token swap completed.
+2024/03/02 16:41:37 one_click_trading.go:73: Starting swappping to Lunc, should fail
+2024/03/02 16:41:37 swap.go:38: Starting token swap...
+2024/03/02 16:41:37 swap.go:72: Initial balance of ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0: 8403356268298
+2024/03/02 16:41:37 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
+2024/03/02 16:41:37 sign_and_broadcast_msg.go:69: Broadcasting...
+2024/03/02 16:41:37 sign_and_broadcast_msg.go:80: Transaction Hash: 233C500687490B39E6F6898CE7A528090E0C5D9AE8F25272886C7C6E5CC40267
+2024/03/02 16:41:43 sign_and_broadcast_msg.go:84: Verifing...
+2024/03/02 16:41:43 sign_and_broadcast_msg.go:97: code: 4
+codespace: sdk
+data: ""
+events:
+- attributes:
+  - index: true
+    key: spender
+    value: osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv
+  - index: true
+    key: amount
+    value: 7000uosmo
+  type: coin_spent
+- attributes:
+  - index: true
+    key: receiver
+    value: osmo17xpfvakm2amg962yls6f84z3kell8c5lczssa0
+  - index: true
+    key: amount
+    value: 7000uosmo
+  type: coin_received
+- attributes:
+  - index: true
+    key: recipient
+    value: osmo17xpfvakm2amg962yls6f84z3kell8c5lczssa0
+  - index: true
+    key: sender
+    value: osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv
+  - index: true
+    key: amount
+    value: 7000uosmo
+  type: transfer
+- attributes:
+  - index: true
+    key: sender
+    value: osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv
+  type: message
+- attributes:
+  - index: true
+    key: fee
+    value: 7000uosmo
+  type: tx
+- attributes:
+  - index: true
+    key: acc_seq
+    value: osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv/309
+  type: tx
+- attributes:
+  - index: true
+    key: signature
+    value: Zmr1F4LsVTAuwwpCv+48kROlt+Y2zH6beIhV4MpUA/4PZ0Z8PSAVGSxO01/C7BjUzBhtSLtyYz0c3w7Po+b4bQ==
+  type: tx
+- attributes:
+  - index: true
+    key: _contract_address
+    value: osmo1x57l2yanux5277kht6udkgdxkkuynv6ndm5836x5ll4hgwcxfhlstmnwp3
+  type: sudo
+gas_used: "399549"
+gas_wanted: "1700000"
+height: "14121751"
+info: ""
+logs: []
+raw_log: 'execution blocked by authenticator (account = osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv,
+  id = 189): Spend limit error: Overspend: remaining qouta 9846, requested 154886266321:
+  execute wasm contract failed: unauthorized'
+timestamp: "2024-03-02T16:41:35Z"
+tx:
+  '@type': /cosmos.tx.v1beta1.Tx
+  auth_info:
+    fee:
+      amount:
+      - amount: "7000"
+        denom: uosmo
+      gas_limit: "1700000"
+      granter: ""
+      payer: ""
+    signer_infos:
+    - mode_info:
+        single:
+          mode: SIGN_MODE_DIRECT
+      public_key:
+        '@type': /cosmos.crypto.secp256k1.PubKey
+        key: A2G5GnZLlHyxQJUI6LW2ww1lnFEBy+3CCl8LsK2OY6Tj
+      sequence: "309"
+    tip: null
+  body:
+    extension_options: []
+    memo: ""
+    messages:
+    - '@type': /osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn
+      routes:
+      - pool_id: "561"
+        token_out_denom: ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0
+      sender: osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv
+      token_in:
+        amount: "100000000000"
+        denom: uosmo
+      token_out_min_amount: "1"
+    non_critical_extension_options:
+    - '@type': /osmosis.authenticator.TxExtension
+      selected_authenticators:
+      - 2
+    timeout_height: "0"
+  signatures:
+  - Zmr1F4LsVTAuwwpCv+48kROlt+Y2zH6beIhV4MpUA/4PZ0Z8PSAVGSxO01/C7BjUzBhtSLtyYz0c3w7Po+b4bQ==
+txhash: 233C500687490B39E6F6898CE7A528090E0C5D9AE8F25272886C7C6E5CC40267
+
+2024/03/02 16:41:43 sign_and_broadcast_msg.go:100: Gas Used: 399549
+2024/03/02 16:41:43 swap.go:109: Post-swap balance of ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0: 8403356268298
+2024/03/02 16:41:43 swap.go:115: Balance of toToken did not increase as expected.
+2024/03/02 16:41:43 swap.go:118: Token swap completed.
+2024/03/02 16:41:43 swap.go:38: Starting token swap...
+2024/03/02 16:41:43 swap.go:72: Initial balance of ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2: 95348664
+2024/03/02 16:41:43 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
+2024/03/02 16:41:43 sign_and_broadcast_msg.go:69: Broadcasting...
+2024/03/02 16:41:43 sign_and_broadcast_msg.go:80: Transaction Hash: 884E9DCF1595AB4359114D7F4A47AA00F7E793AF354936707710D90AE6F69369
+2024/03/02 16:41:49 sign_and_broadcast_msg.go:84: Verifing...
+2024/03/02 16:41:49 sign_and_broadcast_msg.go:95: Transaction Success...
+2024/03/02 16:41:49 sign_and_broadcast_msg.go:100: Gas Used: 427736
+2024/03/02 16:41:49 swap.go:109: Post-swap balance of ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2: 95348679
+2024/03/02 16:41:49 swap.go:113: Balance of toToken has increased after the swap.
+2024/03/02 16:41:49 swap.go:118: Token swap completed.
+2024/03/02 16:41:49 swap.go:38: Starting token swap...
+2024/03/02 16:41:49 swap.go:72: Initial balance of ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2: 95348679
+2024/03/02 16:41:49 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
+2024/03/02 16:41:49 sign_and_broadcast_msg.go:69: Broadcasting...
+2024/03/02 16:41:49 sign_and_broadcast_msg.go:80: Transaction Hash: 97874A90A7BE18B6D032A06F5AAEE5F04B11333D3BD17DF45F05DCECC9110500
+2024/03/02 16:41:55 sign_and_broadcast_msg.go:84: Verifing...
+2024/03/02 16:41:55 sign_and_broadcast_msg.go:95: Transaction Success...
+2024/03/02 16:41:55 sign_and_broadcast_msg.go:100: Gas Used: 428964
+2024/03/02 16:41:55 swap.go:109: Post-swap balance of ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2: 95348694
+2024/03/02 16:41:55 swap.go:113: Balance of toToken has increased after the swap.
+2024/03/02 16:41:55 swap.go:118: Token swap completed.
+2024/03/02 16:41:55 one_click_trading.go:126: Removing spend limit authenticator
+2024/03/02 16:41:55 remove_authenticator.go:43: Querying authenticators for account osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv
+2024/03/02 16:41:55 remove_authenticator.go:44: Number of authenticators: 3
+2024/03/02 16:41:55 remove_authenticator.go:51: Removing authenticator for account osmo18s5lynnmx37hq4wlrw9gdn68sg2uxp5rgk26vv
+2024/03/02 16:41:55 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
+2024/03/02 16:41:55 sign_and_broadcast_msg.go:69: Broadcasting...
+2024/03/02 16:41:55 sign_and_broadcast_msg.go:80: Transaction Hash: DB23FDACB716EDA2271252C0D5B24316A92E5A50846C59A048044B6FDAB5E723
+2024/03/02 16:42:01 sign_and_broadcast_msg.go:84: Verifing...
+2024/03/02 16:42:02 sign_and_broadcast_msg.go:95: Transaction Success...
+2024/03/02 16:42:02 sign_and_broadcast_msg.go:100: Gas Used: 129322
+2024/03/02 16:42:02 remove_authenticator.go:72: Number of authenticators post: 2
+2024/03/02 16:42:02 remove_authenticator.go:76: Removed authenticator
+2024/03/02 16:42:02 remove_authenticator.go:79: Remove authenticator completed.

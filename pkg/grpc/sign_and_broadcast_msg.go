@@ -10,7 +10,7 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	key "github.com/osmosis-labs/autenticator-test/pkg/key"
-	"github.com/osmosis-labs/osmosis/v21/app/params"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
 )
 
 func SignAndBroadcastAuthenticatorMsgMultiSigners(
@@ -22,7 +22,7 @@ func SignAndBroadcastAuthenticatorMsgMultiSigners(
 	txClient txtypes.ServiceClient,
 	chainID string,
 	msgs []sdk.Msg,
-	selectedAuthenticators []int32,
+	selectedAuthenticators []uint64,
 ) error {
 	log.Println("Signing and broadcasting message flow")
 

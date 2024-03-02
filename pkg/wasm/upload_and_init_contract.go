@@ -19,7 +19,7 @@ import (
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
-	"github.com/osmosis-labs/osmosis/v21/app/params"
+	"github.com/osmosis-labs/osmosis/v23/app/params"
 )
 
 type CosignerInstantiateMsg struct {
@@ -73,7 +73,7 @@ func UploadAndInstantiateContract(
 		txClient,
 		chainID,
 		[]sdk.Msg{msg},
-		[]int32{},
+		[]uint64{},
 	)
 	if err != nil {
 		return err
@@ -104,7 +104,7 @@ func UploadAndInstantiateContract(
 		txClient,
 		chainID,
 		[]sdk.Msg{initMsg},
-		[]int32{},
+		[]uint64{},
 	)
 
 	contracts, err := wasmClient.ContractsByCode(
