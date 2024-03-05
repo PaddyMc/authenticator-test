@@ -20,6 +20,7 @@ import (
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
 
+// CreateCosignerAccount creates a composit authenticator that can be used for cosigning
 func CreateCosignerAccount(
 	conn *grpc.ClientConn,
 	encCfg params.EncodingConfig,
@@ -36,7 +37,6 @@ func CreateCosignerAccount(
 	priv2 := cosignerKey
 
 	accAddress := sdk.AccAddress(priv1.PubKey().Address())
-	//accAddress2 := sdk.AccAddress(priv2.PubKey().Address())
 
 	allAuthenticatorsResp, err := authenticatorClient.GetAuthenticators(
 		context.Background(),
@@ -49,7 +49,7 @@ func CreateCosignerAccount(
 	log.Println("Querying authenticators for account", accAddress.String())
 	log.Println("Number of authenticators:", len(allAuthenticatorsResp.AccountAuthenticators))
 
-	// initialise spend limit authenticator
+	// Create the first AllOfAuthenticator
 	initDataPrivKey0 := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "SignatureVerificationAuthenticator",
 		Data:              priv1.PubKey().Bytes(),
@@ -60,6 +60,7 @@ func CreateCosignerAccount(
 		Data:              priv2.PubKey().Bytes(),
 	}
 
+	// Create the message filter AnyOf authenticator
 	initDataMessageFilter1 := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "MessageFilterAuthenticator",
 		Data:              []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
@@ -70,11 +71,13 @@ func CreateCosignerAccount(
 		Data:              []byte(`{"@type":"/cosmos.bqnk"}`),
 	}
 
+	// Compose the data for cosigner authenticator
 	compositeAuthDataAllOf := []authenticator.SubAuthenticatorInitData{
 		initDataPrivKey0,
 		initDataPrivKey1,
 	}
 
+	// Compose the data for anyof messagefilter authenticator
 	compositeAuthDataAnyOf := []authenticator.SubAuthenticatorInitData{
 		initDataMessageFilter1,
 		initDataMessageFilter2,
@@ -86,17 +89,20 @@ func CreateCosignerAccount(
 		Data:              dataAnyOf,
 	}
 
+	// This is the cosigner authenticator
 	dataAllOf, err := json.Marshal(compositeAuthDataAllOf)
 	initDataAllOf := authenticator.SubAuthenticatorInitData{
 		AuthenticatorType: "PartitionedAllOfAuthenticator",
 		Data:              dataAllOf,
 	}
 
+	// Compose the AllOf and the AnyOf
 	compositeComplex := []authenticator.SubAuthenticatorInitData{
 		initDataAnyOf,
 		initDataAllOf,
 	}
 
+	// This is the final state of the authenticator that will be sent to the chain
 	dataCompositeComplex, err := json.Marshal(compositeComplex)
 	addAllOfAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
 		Sender: accAddress.String(),

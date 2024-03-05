@@ -78,6 +78,9 @@ func SignAndBroadcastAuthenticatorMsgMultiSigners(
 		return err
 	}
 	log.Println("Transaction Hash:", resp.TxResponse.TxHash)
+	if resp.TxResponse.RawLog != "" {
+		log.Println("Transaction failed reason:", resp.TxResponse.RawLog)
+	}
 
 	time.Sleep(6 * time.Second)
 

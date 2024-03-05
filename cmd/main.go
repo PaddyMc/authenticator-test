@@ -40,7 +40,7 @@ var DefaultDenoms = map[string]string{
 }
 
 const (
-	appName = "osmosis-seed"
+	appName = "osmosis-test"
 )
 
 func main() {
@@ -61,7 +61,7 @@ func main() {
 func NewRootCmd() *cobra.Command {
 	var rootCmd = &cobra.Command{
 		Use:   appName,
-		Short: "osmosis-seed has a variety of seeds that run against localnet, testnet, and mainnet",
+		Short: "osmosis-test has a variety of seeds that run against localnet, testnet, and mainnet",
 	}
 
 	var authenticatorCmd = &cobra.Command{
