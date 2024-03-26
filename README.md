@@ -12,12 +12,20 @@ The `osmosis-test` tool is designed to test integration with third-party signers
 
 The tool offers the following commands:
 
-- `start-one-click-trading-flow`: Tests the one-click trading flow.
-- `start-swap-with-signature-authenticator-flow`: Creates a SignatureVerificationAuthenticator and executes a swap in a pool.
-- `start-remove-all-authenticators-flow`: Removes all authenticators associated with an account.
-- `start-cosigner-flow`: Creates a cosigner key and performs transactions.
-- `start-bank-send-flow`: Executes bank sends to multiple accounts.
-- `help`: Provides help and information about the commands.
+```
+osmosis-test has a variety of seeds that run against localnet, testnet, and mainnet
+
+Usage:
+  osmosis-test [command]
+
+Available Commands:
+  local       the local command interacts with and edgenet deployed here: 0.0.0.0:9090
+  edge        the edge command interacts with and edgenet deployed here: 161.35.19.190:9090
+  help        Help about any command
+
+Flags:
+  -h, --help   help for osmosis-test
+```
 
 To use the tool, run commands using the following syntax:
 
@@ -38,7 +46,7 @@ const (
 	// TestUser4 is not in the auth store
 	TestKeyUser4         = "X"
 	AccountAddressPrefix = "osmo"
-	ChainID              = "smartaccount"
+	ChainID              = "edgenet"
 	addr                 = "ip:9090"
 )
 
@@ -58,77 +66,25 @@ var DefaultDenoms = map[string]string{
 
 ```
 
-## Cosigner Flow
-
-The Cosigner flow in this client is a pattern that most commands should follow.
-
-### Running the Cosigner Flow
-
-Execute the cosigner flow with the following command:
-
-```bash
-go run cmd/main.go start-cosigner-flow
-```
-
-#### Step 1: Create a Cosigner
-```
-2024/03/02 19:57:20 cosigner_flow.go:33: Starting cosigner authenticator flow
-2024/03/02 19:57:20 cosigner_flow.go:34: Adding cosigner authenticator
-2024/03/02 19:57:20 cosigner.go:49: Querying authenticators for account osmo1mveeh0ruel03usw3k4agxf68l5dmltyemgdlsk
-2024/03/02 19:57:20 cosigner.go:50: Number of authenticators: 0
-2024/03/02 19:57:20 cosigner.go:107: Adding authenticator for account osmo1mveeh0ruel03usw3k4agxf68l5dmltyemgdlsk first authenticator
-2024/03/02 19:57:20 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
-2024/03/02 19:57:20 sign_and_broadcast_msg.go:69: Broadcasting...
-2024/03/02 19:57:20 sign_and_broadcast_msg.go:80: Transaction Hash: FF6B5AD7657B4B60A8AFBB2AE734178EC94AD4D48B8C57F1B1E94A9C340BCBB8
-2024/03/02 19:57:20 sign_and_broadcast_msg.go:82: Transaction failed reason: []
-2024/03/02 19:57:26 sign_and_broadcast_msg.go:87: Verifing...
-2024/03/02 19:57:26 sign_and_broadcast_msg.go:98: Transaction Success...
-2024/03/02 19:57:26 sign_and_broadcast_msg.go:103: Gas Used: 106734
-2024/03/02 19:57:26 cosigner.go:128: Number of authenticators post: 1
-2024/03/02 19:57:26 cosigner.go:132: Added authenticator
-2024/03/02 19:57:26 cosigner.go:135: Add authenticator completed.
-```
-
-#### Step 2: Swap Tokens Using the Cosigner
-```
-2024/03/02 19:57:26 cosigner_flow.go:46: Starting swap flow
-2024/03/02 19:57:26 swap.go:38: Starting token swap...
-2024/03/02 19:57:26 swap.go:72: Initial balance of ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2: 90
-2024/03/02 19:57:26 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
-2024/03/02 19:57:26 sign_and_broadcast_msg.go:69: Broadcasting...
-2024/03/02 19:57:26 sign_and_broadcast_msg.go:80: Transaction Hash: C79D01E055F1EC343AA0C8E9AD376CB37068AA663E09E06A3D0335B73122CEDA
-2024/03/02 19:57:26 sign_and_broadcast_msg.go:82: Transaction failed reason: []
-2024/03/02 19:57:32 sign_and_broadcast_msg.go:87: Verifing...
-2024/03/02 19:57:32 sign_and_broadcast_msg.go:98: Transaction Success...
-2024/03/02 19:57:32 sign_and_broadcast_msg.go:103: Gas Used: 194130
-2024/03/02 19:57:32 swap.go:110: Post-swap balance of ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2: 105
-2024/03/02 19:57:32 swap.go:114: Balance of toToken has increased after the swap.
-2024/03/02 19:57:32 swap.go:119: Token swap completed.
-```
-
-#### Step 3: Remove the Authenticator
-```
-2024/03/02 21:00:48 cosigner_flow.go:67: Removing cosigner authenticator
-2024/03/02 21:00:48 remove_authenticator.go:43: Querying authenticators for account osmo1mveeh0ruel03usw3k4agxf68l5dmltyemgdlsk
-2024/03/02 21:00:48 remove_authenticator.go:44: Number of authenticators: 1
-2024/03/02 21:00:48 remove_authenticator.go:51: Removing authenticator for account osmo1mveeh0ruel03usw3k4agxf68l5dmltyemgdlsk
-2024/03/02 21:00:48 sign_and_broadcast_msg.go:27: Signing and broadcasting message flow
-2024/03/02 21:00:48 sign_and_broadcast_msg.go:69: Broadcasting...
-2024/03/02 21:00:48 sign_and_broadcast_msg.go:80: Transaction Hash: F86D6FBAEF3A5C1C44C1812408E05B08B6F6CA08DF0AC78AA28542D9373FFC4B
-2024/03/02 21:00:48 sign_and_broadcast_msg.go:82: Transaction failed reason: []
-2024/03/02 21:00:54 sign_and_broadcast_msg.go:87: Verifing...
-2024/03/02 21:00:54 sign_and_broadcast_msg.go:98: Transaction Success...
-2024/03/02 21:00:54 sign_and_broadcast_msg.go:103: Gas Used: 64883
-2024/03/02 21:00:54 remove_authenticator.go:72: Number of authenticators post: 0
-2024/03/02 21:00:54 remove_authenticator.go:76: Removed authenticator
-2024/03/02 21:00:54 remove_authenticator.go:79: Remove authenticator completed.
-```
-
-### Consistent state
+### Consistent State
 
 We use mainnet state with a in-place-testnet migration to have consistent state.
 
+Make sure your on the lastest tag of Osmosis!
+
+Run:
 ```
-TBD
+./start_mainnet_state.sh
 ```
 
+Then stop the node and run:
+```
+osmosisd in-place-testnet edgenet osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj --trigger-testnet-upgrade v24
+```
+
+Wait for the upgrade error, checkout the latest upgrade and run:
+```
+osmosisd start --home=$HOME/.osmosisd --p2p.persistent_peers "" --p2p.seeds "" --rpc.unsafe --grpc.enable --grpc-web.enable
+```
+
+This will upgrade the node to the lastest migration and also have mainnet state that useful for testing

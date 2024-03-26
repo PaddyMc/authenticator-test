@@ -21,8 +21,14 @@ const (
 	// TestUser4 is not in the auth store
 	TestKeyUser4         = "3d23af3840f0535863518fa8bbb8b98a231aa0bd2eb181911bfd8930f0ada7f9"
 	AccountAddressPrefix = "osmo"
-	ChainID              = "smartaccount"
-	addr                 = "164.92.247.225:9090"
+
+	EdgeChainID = "edgenet"
+	EdgeAddress = "161.35.19.190:9090"
+
+	LocalChainID = "edgenet"
+	LocalAddress = "0.0.0.0:9090"
+
+	MainnetAddress = "grpc.osmosis.zone:9090"
 )
 
 var DefaultDenoms = map[string]string{
@@ -64,14 +70,25 @@ func NewRootCmd() *cobra.Command {
 		Short: "osmosis-test has a variety of seeds that run against localnet, testnet, and mainnet",
 	}
 
-	var authenticatorCmd = &cobra.Command{
+	localCmd := &cobra.Command{
+		Use:   "local",
+		Short: "the local command interacts with a local node deployed here: " + LocalAddress,
+	}
+
+	authenticatorCmd := &cobra.Command{
 		Use:   "auth",
 		Short: "auth has a seeds that run to interact with authenticators",
 	}
 
-	config := config.SetUp(
-		ChainID,
-		addr,
+	clCmd := &cobra.Command{
+		Use:   "cl",
+		Short: "cl has a seeds that run to interact with the concentrated-liquidity",
+	}
+
+	// Localnet Config SetUp
+	localConfig := config.SetUp(
+		LocalChainID,
+		LocalAddress,
 		[]string{
 			TestKeyValidator,
 			TestKeyUser1,
@@ -82,15 +99,74 @@ func NewRootCmd() *cobra.Command {
 		DefaultDenoms,
 	)
 
+	// LocalCommands
 	authenticatorCmd.AddCommand(
-		seed.SeedCreateOneClickTradingAccount(config),
-		seed.SeedSwapCmd(config),
-		seed.SeedRemoveAllAuthenticators(config),
-		seed.SeedCreateCosigner(config),
+		seed.SeedCreateOneClickTradingAccount(localConfig),
+		seed.SeedSwapCmd(localConfig),
+		seed.SeedRemoveAllAuthenticators(localConfig),
+		seed.SeedCreateCosigner(localConfig),
 	)
 
-	rootCmd.AddCommand(
+	clCmd.AddCommand(
+		seed.StartClIncentiveFlow(localConfig),
+		seed.StartClSwapAndTransferPositionFlow(localConfig),
+	)
+
+	localCmd.AddCommand(
 		authenticatorCmd,
+		clCmd,
+	)
+
+	// Edgenet Config SetUp
+	edgeConfig := config.SetUp(
+		EdgeChainID,
+		EdgeAddress,
+		[]string{
+			TestKeyValidator,
+			TestKeyUser1,
+			TestKeyUser2,
+			TestKeyUser3,
+			TestKeyUser4,
+		},
+		DefaultDenoms,
+	)
+
+	edgeCmd := &cobra.Command{
+		Use:   "edge",
+		Short: "the edge command interacts with an edgenet deployed here: " + EdgeAddress,
+	}
+
+	edgeAuthenticatorCmd := &cobra.Command{
+		Use:   "auth",
+		Short: "auth has a seeds that run to interact with authenticators",
+	}
+
+	edgeCLCmd := &cobra.Command{
+		Use:   "cl",
+		Short: "cl has a seeds that run to interact with the concentrated-liquidity",
+	}
+
+	edgeAuthenticatorCmd.AddCommand(
+		seed.SeedCreateOneClickTradingAccount(edgeConfig),
+		seed.SeedSwapCmd(edgeConfig),
+		seed.SeedRemoveAllAuthenticators(edgeConfig),
+		seed.SeedCreateCosigner(edgeConfig),
+	)
+
+	edgeCLCmd.AddCommand(
+		seed.StartClIncentiveFlow(edgeConfig),
+		seed.StartClSwapAndTransferPositionFlow(edgeConfig),
+	)
+
+	edgeCmd.AddCommand(
+		edgeAuthenticatorCmd,
+		edgeCLCmd,
+	)
+
+	// ROOT command
+	rootCmd.AddCommand(
+		localCmd,
+		edgeCmd,
 	)
 
 	return rootCmd

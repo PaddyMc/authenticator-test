@@ -47,6 +47,7 @@ func SignAndBroadcastAuthenticatorMsgMultiSigners(
 			return err
 		}
 
+		log.Println("Signer account: " + acc.GetAddress().String())
 		accNums = append(accNums, acc.GetAccountNumber())
 		accSeqs = append(accSeqs, acc.GetSequence())
 	}
@@ -66,7 +67,6 @@ func SignAndBroadcastAuthenticatorMsgMultiSigners(
 		selectedAuthenticators,
 	)
 
-	log.Println("Broadcasting...")
 	resp, err := txClient.BroadcastTx(
 		context.Background(),
 		&txtypes.BroadcastTxRequest{
@@ -84,7 +84,6 @@ func SignAndBroadcastAuthenticatorMsgMultiSigners(
 
 	time.Sleep(6 * time.Second)
 
-	log.Println("Verifing...")
 	tx, err := txClient.GetTx(
 		context.Background(),
 		&txtypes.GetTxRequest{

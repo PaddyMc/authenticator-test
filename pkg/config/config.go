@@ -3,10 +3,8 @@ package config
 import (
 	"encoding/hex"
 	"fmt"
-	"log"
 
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/osmosis-labs/osmosis/v23/app"
 	"github.com/osmosis-labs/osmosis/v23/app/params"
 
@@ -42,8 +40,8 @@ func SetUp(
 		}
 
 		privKey := &secp256k1.PrivKey{Key: bz}
-		accAddress := sdk.AccAddress(privKey.PubKey().Address())
-		log.Println("Account: ", accAddress.String())
+		// accAddress := sdk.AccAddress(privKey.PubKey().Address())
+		// log.Println("Account: ", accAddress.String())
 		keys = append(keys, privKey)
 	}
 
