@@ -476,10 +476,6 @@ func SwapAndCreatePositionInAllCLPoolsWithLiquidity(
 	signerKey *secp256k1.PrivKey,
 	cosignersKeys map[int][]cryptotypes.PrivKey,
 	selectedAuthenticator []uint64,
-	fromToken string,
-	toToken string,
-	poolId uint64,
-	tokenAmount int64,
 ) error {
 	log.Println("Starting swapping and creating positions in all incentivised pools...")
 

@@ -4,7 +4,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/osmosis-labs/autenticator-test/cmd/seed"
+	as "github.com/osmosis-labs/autenticator-test/cmd/seed/auth"
+	cls "github.com/osmosis-labs/autenticator-test/cmd/seed/cl"
+	vs "github.com/osmosis-labs/autenticator-test/cmd/seed/staking"
 	"github.com/osmosis-labs/autenticator-test/pkg/config"
 
 	"github.com/spf13/cobra"
@@ -85,6 +87,11 @@ func NewRootCmd() *cobra.Command {
 		Short: "cl has a seeds that run to interact with the concentrated-liquidity",
 	}
 
+	stakingCmd := &cobra.Command{
+		Use:   "stake",
+		Short: "stake has a seeds that run to interact with the staking module",
+	}
+
 	// Localnet Config SetUp
 	localConfig := config.SetUp(
 		LocalChainID,
@@ -101,20 +108,25 @@ func NewRootCmd() *cobra.Command {
 
 	// LocalCommands
 	authenticatorCmd.AddCommand(
-		seed.SeedCreateOneClickTradingAccount(localConfig),
-		seed.SeedSwapCmd(localConfig),
-		seed.SeedRemoveAllAuthenticators(localConfig),
-		seed.SeedCreateCosigner(localConfig),
+		as.SeedCreateOneClickTradingAccount(localConfig),
+		as.SeedSwapCmd(localConfig),
+		as.SeedRemoveAllAuthenticators(localConfig),
+		as.SeedCreateCosigner(localConfig),
 	)
 
 	clCmd.AddCommand(
-		seed.StartClIncentiveFlow(localConfig),
-		seed.StartClSwapAndTransferPositionFlow(localConfig),
+		cls.StartClIncentiveFlow(localConfig),
+		cls.StartClSwapAndTransferPositionFlow(localConfig),
+	)
+
+	stakingCmd.AddCommand(
+		vs.StartValidatorFlow(localConfig),
 	)
 
 	localCmd.AddCommand(
 		authenticatorCmd,
 		clCmd,
+		stakingCmd,
 	)
 
 	// Edgenet Config SetUp
@@ -146,21 +158,31 @@ func NewRootCmd() *cobra.Command {
 		Short: "cl has a seeds that run to interact with the concentrated-liquidity",
 	}
 
+	edgeStakingCmd := &cobra.Command{
+		Use:   "stake",
+		Short: "stake has a seeds that run to interact with the staking module",
+	}
+
 	edgeAuthenticatorCmd.AddCommand(
-		seed.SeedCreateOneClickTradingAccount(edgeConfig),
-		seed.SeedSwapCmd(edgeConfig),
-		seed.SeedRemoveAllAuthenticators(edgeConfig),
-		seed.SeedCreateCosigner(edgeConfig),
+		as.SeedCreateOneClickTradingAccount(edgeConfig),
+		as.SeedSwapCmd(edgeConfig),
+		as.SeedRemoveAllAuthenticators(edgeConfig),
+		as.SeedCreateCosigner(edgeConfig),
 	)
 
 	edgeCLCmd.AddCommand(
-		seed.StartClIncentiveFlow(edgeConfig),
-		seed.StartClSwapAndTransferPositionFlow(edgeConfig),
+		cls.StartClIncentiveFlow(edgeConfig),
+		cls.StartClSwapAndTransferPositionFlow(edgeConfig),
+	)
+
+	edgeStakingCmd.AddCommand(
+		vs.StartValidatorFlow(edgeConfig),
 	)
 
 	edgeCmd.AddCommand(
 		edgeAuthenticatorCmd,
 		edgeCLCmd,
+		edgeStakingCmd,
 	)
 
 	// ROOT command
