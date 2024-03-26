@@ -183,7 +183,7 @@ func CreateIncentivicedPosition(
 	}
 
 	// Wait incentives to be distributed
-	time.Sleep(5 * time.Second)
+	time.Sleep(10 * time.Second)
 
 	// Check rewards for user in pool
 	_, err = DisplayRewardsForPosition(
@@ -300,7 +300,7 @@ func CreatePositionAndTransfer(
 
 	// Wait for incentives
 	log.Println("Wait for incentives to be distributed...")
-	time.Sleep(45 * time.Second)
+	time.Sleep(15 * time.Second)
 
 	// check rewards for user in pool
 	position, err := DisplayRewardsForPosition(
@@ -414,7 +414,7 @@ func SwapAndCreatePositionInCLPool(
 
 	// wait for uptime
 	log.Println("Wait for incentives to be distributed...")
-	time.Sleep(45 * time.Second)
+	time.Sleep(15 * time.Second)
 
 	// check rewards for user in pool
 	position, err := DisplayRewardsForPosition(
