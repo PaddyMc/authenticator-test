@@ -60,9 +60,9 @@ func CreateValidator(
 		DelegatorAddress:  accAddress.String(),
 		ValidatorAddress:  valAddr.String(),
 		Pubkey:            pkAny,
-		Value:             sdk.NewCoin("uosmo", osmomath.NewInt(20000000000)),
+		Value:             sdk.NewCoin("uosmo", osmomath.NewInt(2000)),
 		Commission:        comRates,
-		MinSelfDelegation: osmomath.NewInt(10000000000),
+		MinSelfDelegation: osmomath.NewInt(2000),
 	}
 
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
