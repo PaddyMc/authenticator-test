@@ -1,12 +1,13 @@
 package seed
 
 import (
+	"fmt"
 	"log"
 
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	cl "github.com/osmosis-labs/autenticator-test/pkg/cl"
 	"github.com/osmosis-labs/autenticator-test/pkg/config"
 )
@@ -29,6 +30,19 @@ func StartClSwapAndTransferPositionFlow(seedConfig config.SeedConfig) *cobra.Com
 			selectedAuthenticator := []uint64{1}
 
 			log.Printf("Starting cl swap flow")
+			log.Printf("Start swapping and checking incentives are distributed")
+			//			err := cl.SwapAndCreatePositionInAllCLPoolsWithLiquidity(
+			//				conn,
+			//				encCfg,
+			//				seedConfig.ChainID,
+			//				alice,
+			//				bob,
+			//				cosigners,
+			//				selectedAuthenticator,
+			//			)
+			//			if err != nil {
+			//				return err
+			//			}
 
 			log.Printf("Start swapping and checking incentives are distributed")
 			err := cl.SwapAndCreatePositionInCLPool(
@@ -48,23 +62,24 @@ func StartClSwapAndTransferPositionFlow(seedConfig config.SeedConfig) *cobra.Com
 
 			log.Printf("Start create position and transfer position")
 			accAddress := sdk.AccAddress(bob.PubKey().Address())
-			err = cl.CreatePositionAndTransfer(
-				conn,
-				encCfg,
-				seedConfig.ChainID,
-				alice,
-				bob,
-				cosigners,
-				selectedAuthenticator,
-				1325,
-				100000000,
-				accAddress.String(),
-			)
-			if err != nil {
-				return err
-			}
+			fmt.Println(accAddress)
+			//	err = cl.CreatePositionAndTransfer(
+			//		conn,
+			//		encCfg,
+			//		seedConfig.ChainID,
+			//		alice,
+			//		bob,
+			//		cosigners,
+			//		selectedAuthenticator,
+			//		1323,
+			//		100000000,
+			//		accAddress.String(),
+			//	)
+			//	if err != nil {
+			//		return err
+			//	}
 
-			log.Printf("Finished CL create remove position flow")
+			//log.Printf("Finished CL create remove position flow")
 
 			return nil
 		},

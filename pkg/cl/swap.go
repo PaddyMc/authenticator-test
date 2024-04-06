@@ -67,7 +67,7 @@ func SwapTokens(
 			},
 		},
 		TokenInMaxAmount: osmomath.NewInt(tokenAmount),
-		TokenOut:         sdk.NewCoin(toToken, osmomath.NewInt(100000)),
+		TokenOut:         sdk.NewCoin(toToken, osmomath.NewInt(10000000)),
 	}
 
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(

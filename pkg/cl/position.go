@@ -44,7 +44,7 @@ func CreateIncentivicedPosition(
 
 	accAddress := sdk.AccAddress(fromKey.PubKey().Address())
 
-	log.Printf("Swapping in pool id %d token0 %s token1 %s\n", pool.Id, pool.Token0, pool.Token1)
+	log.Printf("Creating position and swapping in pool id %d token0 %s token1 %s\n", pool.Id, pool.Token0, pool.Token1)
 	incentiveRecordsResp, err := clClient.IncentiveRecords(
 		context.Background(),
 		&clproto.IncentiveRecordsRequest{
@@ -105,10 +105,10 @@ func CreateIncentivicedPosition(
 		fromKey,
 		nil,
 		selectedAuthenticator,
-		pool.Token1,
 		pool.Token0,
+		pool.Token1,
 		pool.Id,
-		100000000,
+		10000000000,
 	)
 	if err != nil {
 		return err
@@ -137,7 +137,8 @@ func CreateIncentivicedPosition(
 		UpperTick: roundedUp,
 		TokensProvided: sdk.Coins{
 			sdk.NewCoin(pool.Token0, balancePost.GetBalance().Amount),
-			sdk.NewCoin(pool.Token1, osmomath.NewInt(10000)),
+			// 100 osmo
+			sdk.NewCoin(pool.Token1, osmomath.NewInt(1000000)),
 		}.Sort(),
 		TokenMinAmount0: osmomath.NewInt(0),
 		TokenMinAmount1: osmomath.NewInt(0),
@@ -173,8 +174,8 @@ func CreateIncentivicedPosition(
 		fromKey,
 		nil,
 		selectedAuthenticator,
-		pool.Token1,
 		pool.Token0,
+		pool.Token1,
 		pool.Id,
 		100000000,
 	)
@@ -183,7 +184,7 @@ func CreateIncentivicedPosition(
 	}
 
 	// Wait incentives to be distributed
-	time.Sleep(10 * time.Second)
+	time.Sleep(30 * time.Second)
 
 	// Check rewards for user in pool
 	_, err = DisplayRewardsForPosition(
@@ -216,11 +217,10 @@ func DisplayRewardsForPosition(
 	if err != nil {
 		return position, err
 	}
-
 	if len(resp.Positions) > 0 {
 		position = resp.Positions[len(resp.Positions)-1]
 
-		log.Printf("CL position in pool %d: user position %d\n",
+		log.Printf("Rewards for position in pool %d: user position %d\n",
 			pool.Id,
 			position.Position.PositionId,
 		)
@@ -300,7 +300,7 @@ func CreatePositionAndTransfer(
 
 	// Wait for incentives
 	log.Println("Wait for incentives to be distributed...")
-	time.Sleep(15 * time.Second)
+	time.Sleep(30 * time.Second)
 
 	// check rewards for user in pool
 	position, err := DisplayRewardsForPosition(
@@ -376,8 +376,8 @@ func SwapAndCreatePositionInCLPool(
 	log.Println("Starting swapping and creating position in single pool...")
 
 	// Set up all grpc clients
-	txClient := txtypes.NewServiceClient(conn)
-	ac := auth.NewQueryClient(conn)
+	//	txClient := txtypes.NewServiceClient(conn)
+	//	ac := auth.NewQueryClient(conn)
 	clClient := clproto.NewQueryClient(conn)
 	pmClient := poolmanagergrpc.NewQueryClient(conn)
 
@@ -414,10 +414,10 @@ func SwapAndCreatePositionInCLPool(
 
 	// wait for uptime
 	log.Println("Wait for incentives to be distributed...")
-	time.Sleep(15 * time.Second)
+	time.Sleep(30 * time.Second)
 
 	// check rewards for user in pool
-	position, err := DisplayRewardsForPosition(
+	_, err = DisplayRewardsForPosition(
 		clClient,
 		pool,
 		accAddress,
@@ -427,27 +427,27 @@ func SwapAndCreatePositionInCLPool(
 	}
 
 	log.Println("Withdrawing position...")
-	createWithdrawPositionMsg := &cltypes.MsgWithdrawPosition{
-		PositionId:      position.Position.PositionId,
-		Sender:          accAddress.String(),
-		LiquidityAmount: position.Position.Liquidity,
-	}
-
-	// remove liquidity from the pool
-	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
-		[]cryptotypes.PrivKey{fromKey},
-		[]cryptotypes.PrivKey{fromKey},
-		nil,
-		encCfg,
-		ac,
-		txClient,
-		chainID,
-		[]sdk.Msg{createWithdrawPositionMsg},
-		[]uint64{},
-	)
-	if err != nil {
-		return err
-	}
+	//	createWithdrawPositionMsg := &cltypes.MsgWithdrawPosition{
+	//		PositionId:      position.Position.PositionId,
+	//		Sender:          accAddress.String(),
+	//		LiquidityAmount: position.Position.Liquidity,
+	//	}
+	//
+	//	// remove liquidity from the pool
+	//	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
+	//		[]cryptotypes.PrivKey{fromKey},
+	//		[]cryptotypes.PrivKey{fromKey},
+	//		nil,
+	//		encCfg,
+	//		ac,
+	//		txClient,
+	//		chainID,
+	//		[]sdk.Msg{createWithdrawPositionMsg},
+	//		[]uint64{},
+	//	)
+	//	if err != nil {
+	//		return err
+	//	}
 
 	poolAccumulatorRewardsResp, err := clClient.PoolAccumulatorRewards(
 		context.Background(),
@@ -461,7 +461,7 @@ func SwapAndCreatePositionInCLPool(
 
 	for i, uptimeG := range poolAccumulatorRewardsResp.UptimeGrowthGlobal {
 		if uptimeG.UptimeGrowthOutside != nil {
-			log.Printf("Incentive accumulmator %d coins for pool %d: %s\n", i, pool.Id, uptimeG.UptimeGrowthOutside)
+			log.Printf("Incentive accumulator %d coins for pool %d: %s\n", i, pool.Id, uptimeG.UptimeGrowthOutside)
 		}
 	}
 
@@ -481,7 +481,7 @@ func SwapAndCreatePositionInAllCLPoolsWithLiquidity(
 
 	clClient := clproto.NewQueryClient(conn)
 
-	limit := uint64(100)
+	limit := uint64(2)
 	key := []byte{}
 	for {
 		resp, err := clClient.Pools(
@@ -505,13 +505,39 @@ func SwapAndCreatePositionInAllCLPoolsWithLiquidity(
 			if err := encCfg.Marshaler.Unmarshal(binaryAny.Value, &pool); err != nil {
 				return err
 			}
-			log.Printf("Iterating pool id %d\n", pool.Id)
+			//log.Printf("Iterating pool id %d incentive address %s \n", pool.Id, pool.IncentivesAddress)
 
 			if pool.Token1 != "uosmo" {
 				continue
 			}
 
-			err := SwapAndCreatePositionInCLPool(
+			if pool.CurrentTickLiquidity.Equal(osmomath.ZeroDec()) {
+				continue
+			}
+
+			incentiveRecordsResp, err := clClient.IncentiveRecords(
+				context.Background(),
+				&clproto.IncentiveRecordsRequest{
+					PoolId:     pool.Id,
+					Pagination: &query.PageRequest{},
+				},
+			)
+			if err != nil {
+				return err
+			}
+
+			if len(incentiveRecordsResp.IncentiveRecords) <= 0 {
+				continue
+			}
+
+			log.Printf("Pool id %d has liquidity %s and incentive of %s with emission rate of %s \n",
+				pool.Id,
+				pool.CurrentTickLiquidity,
+				incentiveRecordsResp.IncentiveRecords[0].IncentiveRecordBody.RemainingCoin,
+				incentiveRecordsResp.IncentiveRecords[0].IncentiveRecordBody.EmissionRate,
+			)
+
+			err = SwapAndCreatePositionInCLPool(
 				conn,
 				encCfg,
 				chainID,
@@ -520,7 +546,7 @@ func SwapAndCreatePositionInAllCLPoolsWithLiquidity(
 				nil,
 				selectedAuthenticator,
 				pool.Id,
-				100000000,
+				10000000000,
 			)
 
 			if err != nil {

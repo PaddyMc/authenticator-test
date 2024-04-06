@@ -2,6 +2,7 @@ package gov
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
@@ -40,6 +41,7 @@ func ChangeMaxAuthenticatorGas(
 		Key:      "MaximumUnauthenticatedGas",
 		Value:    "100000",
 	}
+
 	paramChange := proposal.NewParameterChangeProposal(
 		"Update the max gas for authenticators",
 		"Updating the gas to 100000",
@@ -88,6 +90,12 @@ func ChangeMaxAuthenticatorGas(
 	if err != nil {
 		return err
 	}
+
+	proposals, err = govClient.Proposals(
+		context.Background(),
+		&govv1beta1.QueryProposalsRequest{},
+	)
+	fmt.Println(proposals.Proposals[len(proposals.Proposals)-1])
 
 	return nil
 }

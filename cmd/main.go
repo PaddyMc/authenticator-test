@@ -6,6 +6,7 @@ import (
 
 	as "github.com/osmosis-labs/autenticator-test/cmd/seed/auth"
 	cls "github.com/osmosis-labs/autenticator-test/cmd/seed/cl"
+	gov "github.com/osmosis-labs/autenticator-test/cmd/seed/gov"
 	vs "github.com/osmosis-labs/autenticator-test/cmd/seed/staking"
 	"github.com/osmosis-labs/autenticator-test/pkg/config"
 
@@ -29,6 +30,9 @@ const (
 
 	LocalChainID = "edgenet"
 	LocalAddress = "0.0.0.0:9090"
+
+	//	MainChainID = "osmosis-1"
+	//	LocalAddress = ":9090"
 
 	MainnetAddress = "grpc.osmosis.zone:9090"
 )
@@ -72,8 +76,24 @@ func NewRootCmd() *cobra.Command {
 		Short: "osmosis-test has a variety of seeds that run against localnet, testnet, and mainnet",
 	}
 
-	localCmd := &cobra.Command{
-		Use:   "local",
+	// localnet commands
+	localCmd := SetUpCmds("local", LocalChainID, LocalAddress)
+
+	// edgenet commands
+	edgeCmd := SetUpCmds("edge", EdgeChainID, EdgeAddress)
+
+	// ROOT command
+	rootCmd.AddCommand(
+		localCmd,
+		edgeCmd,
+	)
+
+	return rootCmd
+}
+
+func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   cmdName,
 		Short: "the local command interacts with a local node deployed here: " + LocalAddress,
 	}
 
@@ -92,10 +112,15 @@ func NewRootCmd() *cobra.Command {
 		Short: "stake has a seeds that run to interact with the staking module",
 	}
 
+	govCmd := &cobra.Command{
+		Use:   "gov",
+		Short: "gov has a seeds that run to interact with the gov module",
+	}
+
 	// Localnet Config SetUp
-	localConfig := config.SetUp(
-		LocalChainID,
-		LocalAddress,
+	conf := config.SetUp(
+		chainID,
+		address,
 		[]string{
 			TestKeyValidator,
 			TestKeyUser1,
@@ -108,88 +133,31 @@ func NewRootCmd() *cobra.Command {
 
 	// LocalCommands
 	authenticatorCmd.AddCommand(
-		as.SeedCreateOneClickTradingAccount(localConfig),
-		as.SeedSwapCmd(localConfig),
-		as.SeedRemoveAllAuthenticators(localConfig),
-		as.SeedCreateCosigner(localConfig),
+		as.SeedCreateOneClickTradingAccount(conf),
+		as.SeedSwapCmd(conf),
+		as.SeedRemoveAllAuthenticators(conf),
+		as.SeedCreateCosigner(conf),
 	)
 
 	clCmd.AddCommand(
-		cls.StartClIncentiveFlow(localConfig),
-		cls.StartClSwapAndTransferPositionFlow(localConfig),
+		cls.StartClIncentiveFlow(conf),
+		cls.StartClSwapAndTransferPositionFlow(conf),
 	)
 
 	stakingCmd.AddCommand(
-		vs.StartValidatorFlow(localConfig),
+		vs.StartValidatorFlow(conf),
 	)
 
-	localCmd.AddCommand(
+	govCmd.AddCommand(
+		gov.StartGovernanceFlow(conf),
+	)
+
+	cmd.AddCommand(
 		authenticatorCmd,
 		clCmd,
 		stakingCmd,
+		govCmd,
 	)
 
-	// Edgenet Config SetUp
-	edgeConfig := config.SetUp(
-		EdgeChainID,
-		EdgeAddress,
-		[]string{
-			TestKeyValidator,
-			TestKeyUser1,
-			TestKeyUser2,
-			TestKeyUser3,
-			TestKeyUser4,
-		},
-		DefaultDenoms,
-	)
-
-	edgeCmd := &cobra.Command{
-		Use:   "edge",
-		Short: "the edge command interacts with an edgenet deployed here: " + EdgeAddress,
-	}
-
-	edgeAuthenticatorCmd := &cobra.Command{
-		Use:   "auth",
-		Short: "auth has a seeds that run to interact with authenticators",
-	}
-
-	edgeCLCmd := &cobra.Command{
-		Use:   "cl",
-		Short: "cl has a seeds that run to interact with the concentrated-liquidity",
-	}
-
-	edgeStakingCmd := &cobra.Command{
-		Use:   "stake",
-		Short: "stake has a seeds that run to interact with the staking module",
-	}
-
-	edgeAuthenticatorCmd.AddCommand(
-		as.SeedCreateOneClickTradingAccount(edgeConfig),
-		as.SeedSwapCmd(edgeConfig),
-		as.SeedRemoveAllAuthenticators(edgeConfig),
-		as.SeedCreateCosigner(edgeConfig),
-	)
-
-	edgeCLCmd.AddCommand(
-		cls.StartClIncentiveFlow(edgeConfig),
-		cls.StartClSwapAndTransferPositionFlow(edgeConfig),
-	)
-
-	edgeStakingCmd.AddCommand(
-		vs.StartValidatorFlow(edgeConfig),
-	)
-
-	edgeCmd.AddCommand(
-		edgeAuthenticatorCmd,
-		edgeCLCmd,
-		edgeStakingCmd,
-	)
-
-	// ROOT command
-	rootCmd.AddCommand(
-		localCmd,
-		edgeCmd,
-	)
-
-	return rootCmd
+	return cmd
 }
