@@ -28,7 +28,19 @@ func StartValidatorFlow(seedConfig config.SeedConfig) *cobra.Command {
 			log.Printf("Starting create validator flow")
 
 			log.Printf("Creating a validator")
-			err := staking.CreateValidator(
+			//			err := staking.CreateValidator(
+			//				conn,
+			//				encCfg,
+			//				seedConfig.ChainID,
+			//				alice,
+			//				bob,
+			//				alice,
+			//			)
+			//			if err != nil {
+			//				return err
+			//			}
+
+			err := staking.GetValidatorDelegations(
 				conn,
 				encCfg,
 				seedConfig.ChainID,
