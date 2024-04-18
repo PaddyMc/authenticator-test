@@ -2,7 +2,7 @@ package validator
 
 import (
 	"context"
-	"fmt"
+	"log"
 
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	"github.com/cosmos/cosmos-sdk/types/query"
@@ -24,10 +24,12 @@ func GetValidatorDelegations(
 ) error {
 	// set up all clients
 	stakingClient := stakingtypes.NewQueryClient(conn)
+	valOpAddr := "osmovaloper1dnmz4yzv73lr3lmauuaa0wpwn8zm8s20lg3pg9"
 
-	eleValAddr, _ := sdk.ValAddressFromBech32("osmovaloper1tv9wnreg9z5qlxyte8526n7p3tjasndede2kj9")
+	eleValAddr, _ := sdk.ValAddressFromBech32(valOpAddr)
+	//eleValAddr, _ := sdk.ValAddressFromBech32("osmovaloper1tv9wnreg9z5qlxyte8526n7p3tjasndede2kj9")
 
-	limit := uint64(2)
+	limit := uint64(1000)
 	key := []byte{}
 	validatorDelegations, err := stakingClient.ValidatorDelegations(
 		context.Background(),
@@ -42,9 +44,9 @@ func GetValidatorDelegations(
 	if err != nil {
 		return err
 	}
-	fmt.Println(validatorDelegations)
+	//fmt.Println(validatorDelegations)
 
-	//log.Printf("Number of delegators for Electric %d", len(validatorDelegations.DelegationResponses))
+	log.Printf("Number of delegators for validator %s %d", valOpAddr, len(validatorDelegations.DelegationResponses))
 
 	return nil
 }

@@ -25,9 +25,9 @@ func StartValidatorFlow(seedConfig config.SeedConfig) *cobra.Command {
 			cosigners := make(map[int][]cryptotypes.PrivKey)
 			cosigners[1] = []cryptotypes.PrivKey{alice, bob}
 
-			log.Printf("Starting create validator flow")
+			log.Printf("Querying all validator delegations")
 
-			log.Printf("Creating a validator")
+			//log.Printf("Creating a validator")
 			//			err := staking.CreateValidator(
 			//				conn,
 			//				encCfg,
