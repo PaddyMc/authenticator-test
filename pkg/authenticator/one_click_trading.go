@@ -16,9 +16,9 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v23/app/params"
-	"github.com/osmosis-labs/osmosis/v23/x/authenticator/authenticator"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v23/x/authenticator/types"
+	"github.com/osmosis-labs/osmosis/v24/app/params"
+	"github.com/osmosis-labs/osmosis/v24/x/smart-account/authenticator"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v24/x/smart-account/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )

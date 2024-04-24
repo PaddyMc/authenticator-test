@@ -39,17 +39,17 @@ func StartClIncentiveFlow(seedConfig config.SeedConfig) *cobra.Command {
 			}
 			log.Printf("Incentive Accumulators exported to acculmator.csv")
 
-			log.Printf("Check cl pools for incentive records")
-			err = cl.CheckAllIncentivesForPools(
-				conn,
-				encCfg,
-				seedConfig.ChainID,
-				"incentives.csv",
-			)
-			if err != nil {
-				return err
-			}
-			log.Printf("Incentives exported to incentives.csv")
+			//log.Printf("Check cl pools for incentive records")
+			//err = cl.CheckAllIncentivesForPools(
+			//	conn,
+			//	encCfg,
+			//	seedConfig.ChainID,
+			//	"incentives.csv",
+			//)
+			//if err != nil {
+			//	return err
+			//}
+			//log.Printf("Incentives exported to incentives.csv")
 
 			log.Printf("Finished CL incentive flow")
 

@@ -16,8 +16,8 @@ import (
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 
-	"github.com/osmosis-labs/osmosis/v23/app/params"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v23/x/authenticator/types"
+	"github.com/osmosis-labs/osmosis/v24/app/params"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v24/x/smart-account/types"
 )
 
 // SignMsg signs an sdk.Message with a given private key, account number and account sequence

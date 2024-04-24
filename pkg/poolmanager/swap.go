@@ -11,13 +11,13 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v23/app/params"
+	"github.com/osmosis-labs/osmosis/v24/app/params"
 
 	//govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/osmosis-labs/osmosis/osmomath"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v23/x/authenticator/types"
-	poolmanagertypes "github.com/osmosis-labs/osmosis/v23/x/poolmanager/types"
+	poolmanagertypes "github.com/osmosis-labs/osmosis/v24/x/poolmanager/types"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v24/x/smart-account/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )

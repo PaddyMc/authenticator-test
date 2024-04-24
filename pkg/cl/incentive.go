@@ -11,9 +11,9 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/types/query"
 
-	"github.com/osmosis-labs/osmosis/v23/app/params"
-	clproto "github.com/osmosis-labs/osmosis/v23/x/concentrated-liquidity/client/queryproto"
-	clmodel "github.com/osmosis-labs/osmosis/v23/x/concentrated-liquidity/model"
+	"github.com/osmosis-labs/osmosis/v24/app/params"
+	clproto "github.com/osmosis-labs/osmosis/v24/x/concentrated-liquidity/client/queryproto"
+	clmodel "github.com/osmosis-labs/osmosis/v24/x/concentrated-liquidity/model"
 )
 
 // CheckAllIncentiveAccumulatorForPools prints all incentive accumulmator info for all cl pools
@@ -42,6 +42,24 @@ func CheckIncentiveAccumulatorForPools(
 	defer writer.Flush()
 
 	if err := writer.Write(headerCSV); err != nil {
+		panic(err)
+	}
+
+	//
+	sfile, err := os.Create("spread-rewards.csv")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	headerCSV = []string{
+		"Pool Id", "Spread Reward Denom", "Spread Reward Amount",
+	}
+	// Create a CSV writer
+	swriter := csv.NewWriter(sfile)
+	defer swriter.Flush()
+
+	if err := swriter.Write(headerCSV); err != nil {
 		panic(err)
 	}
 
@@ -80,19 +98,41 @@ func CheckIncentiveAccumulatorForPools(
 				return err
 			}
 
+			var incRecord []string
 			var record []string
 
 			for _, uptimeG := range poolAccumulatorRewardsResp.UptimeGrowthGlobal {
 				if uptimeG.UptimeGrowthOutside != nil {
 					log.Printf("Incentive accumulmator coins for pool %d: %s\n", pool.Id, uptimeG.UptimeGrowthOutside)
 					incentiveAccumValue = uptimeG.UptimeGrowthOutside.String()
-					record = []string{
+					incRecord = []string{
 						fmt.Sprintf("%d", pool.Id),
 						incentiveAccumValue,
 					}
-					if err := writer.Write(record); err != nil {
+					if err := writer.Write(incRecord); err != nil {
 						panic(err) // Handle error
 					}
+				}
+			}
+			if len(incRecord) == 0 {
+				incRecord = []string{
+					fmt.Sprintf("%d", pool.Id),
+					"0",
+				}
+				if err := writer.Write(incRecord); err != nil {
+					panic(err) // Handle error
+				}
+			}
+
+			for _, spreadReward := range poolAccumulatorRewardsResp.SpreadRewardGrowthGlobal {
+				log.Printf("Spread rewards coins for pool %d: %s %s\n", pool.Id, spreadReward.Denom, spreadReward.Amount.String())
+				record = []string{
+					fmt.Sprintf("%d", pool.Id),
+					spreadReward.Denom,
+					spreadReward.Amount.String(),
+				}
+				if err := swriter.Write(record); err != nil {
+					panic(err) // Handle error
 				}
 			}
 

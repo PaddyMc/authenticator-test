@@ -19,7 +19,7 @@ import (
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
-	"github.com/osmosis-labs/osmosis/v23/app/params"
+	"github.com/osmosis-labs/osmosis/v24/app/params"
 )
 
 type CosignerInstantiateMsg struct {

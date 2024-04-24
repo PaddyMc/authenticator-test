@@ -18,8 +18,8 @@ import (
 
 	//transfer "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 	"github.com/osmosis-labs/osmosis/osmomath"
-	"github.com/osmosis-labs/osmosis/v23/app/params"
-	poolmanagertypes "github.com/osmosis-labs/osmosis/v23/x/poolmanager/types"
+	"github.com/osmosis-labs/osmosis/v24/app/params"
+	poolmanagertypes "github.com/osmosis-labs/osmosis/v24/x/poolmanager/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
