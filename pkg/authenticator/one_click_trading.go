@@ -55,8 +55,8 @@ func CreateOneClickTradingAccount(
 
 	// initialise spend limit authenticator
 	initDataPrivKey0 := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "SignatureVerificationAuthenticator",
-		Data:              priv2.PubKey().Bytes(),
+		Type:   "SignatureVerification",
+		Config: priv2.PubKey().Bytes(),
 	}
 
 	// Time limit for spend limits
@@ -67,14 +67,14 @@ func CreateOneClickTradingAccount(
 		`{"time_limit": {"end": "%d"}, "reset_period": "day", "limit": "10000"}`, future.UnixNano())
 	encodedParams := base64.StdEncoding.EncodeToString([]byte(jsonString))
 	initDataSpendLimit := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "CosmwasmAuthenticatorV1",
-		Data: []byte(
+		Type: "CosmwasmV1",
+		Config: []byte(
 			`{"contract": "` + spendLimitContractAddress + `", "params": "` + encodedParams + `"}`),
 	}
 
 	initDataMessageFilter := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "MessageFilterAuthenticator",
-		Data:              []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
+		Type:   "MessageFilter",
+		Config: []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
 	}
 	compositeAuthData := []authenticator.SubAuthenticatorInitData{
 		initDataPrivKey0,
@@ -85,7 +85,7 @@ func CreateOneClickTradingAccount(
 	dataAllOf, err := json.Marshal(compositeAuthData)
 	addAllOfAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
 		Sender: accAddress.String(),
-		Type:   "AllOfAuthenticator",
+		Type:   "AllOf",
 		Data:   dataAllOf,
 	}
 

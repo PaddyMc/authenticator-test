@@ -26,6 +26,7 @@ func SeedSwapCmd(seedConfig config.SeedConfig) *cobra.Command {
 
 			alice := seedConfig.Keys[2]
 			bob := seedConfig.Keys[3]
+			chris := seedConfig.Keys[4]
 			cosigners := make(map[int][]cryptotypes.PrivKey)
 
 			log.Println("Starting swap flow")
@@ -40,12 +41,32 @@ func SeedSwapCmd(seedConfig config.SeedConfig) *cobra.Command {
 			if err != nil {
 				return err
 			}
+
+			//
 			err = pm.SwapTokensWithLastestAuthenticator(
 				conn,
 				encCfg,
 				seedConfig.ChainID,
 				alice,
 				bob,
+				cosigners,
+				selectedAuthenticator,
+				OsmoDenom,
+				AtomIBCDenom,
+				osmoAtomClPool,
+				100000000,
+			)
+			if err != nil {
+				log.Println("Transaction Failed...", err.Error())
+				return err
+			}
+
+			err = pm.SwapTokensWithLastestAuthenticator(
+				conn,
+				encCfg,
+				seedConfig.ChainID,
+				alice,
+				chris,
 				cosigners,
 				selectedAuthenticator,
 				OsmoDenom,

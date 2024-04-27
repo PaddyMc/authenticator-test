@@ -49,7 +49,7 @@ func CreateSignatureVerificationAuthenticator(
 
 	addAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
 		Sender: accAddress.String(),
-		Type:   "SignatureVerificationAuthenticator",
+		Type:   "SignatureVerification",
 		Data:   priv2.PubKey().Bytes(),
 	}
 
@@ -74,7 +74,7 @@ func CreateSignatureVerificationAuthenticator(
 		return err
 	}
 
-	log.Println("Number of authenticators post:", len(allAuthenticatorsResp.AccountAuthenticators))
+	log.Println("Number of authenticators post:", len(allAuthenticatorsPostResp.AccountAuthenticators))
 	if len(allAuthenticatorsPostResp.AccountAuthenticators) == len(allAuthenticatorsResp.AccountAuthenticators) {
 		log.Println("Error adding signature verification authenticator.")
 	} else {

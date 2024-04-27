@@ -3,6 +3,7 @@ package config
 import (
 	"encoding/hex"
 	"fmt"
+	"log"
 
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	"github.com/osmosis-labs/osmosis/v24/app"
@@ -10,6 +11,8 @@ import (
 
 	grpc_chain "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 	grpc "google.golang.org/grpc"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 type SeedConfig struct {
@@ -40,8 +43,8 @@ func SetUp(
 		}
 
 		privKey := &secp256k1.PrivKey{Key: bz}
-		// accAddress := sdk.AccAddress(privKey.PubKey().Address())
-		// log.Println("Account: ", accAddress.String())
+		accAddress := sdk.AccAddress(privKey.PubKey().Address())
+		log.Println("Account: ", accAddress.String())
 		keys = append(keys, privKey)
 	}
 

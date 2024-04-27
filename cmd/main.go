@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	auctionSeed "github.com/osmosis-labs/autenticator-test/cmd/seed/auction"
 	as "github.com/osmosis-labs/autenticator-test/cmd/seed/auth"
 	cls "github.com/osmosis-labs/autenticator-test/cmd/seed/cl"
 	gov "github.com/osmosis-labs/autenticator-test/cmd/seed/gov"
@@ -25,11 +26,11 @@ const (
 	TestKeyUser4         = "3d23af3840f0535863518fa8bbb8b98a231aa0bd2eb181911bfd8930f0ada7f9"
 	AccountAddressPrefix = "osmo"
 
-	EdgeChainID = "edgenet"
-	EdgeAddress = "161.35.19.190:9090"
+	EdgeChainID = "smartaccount"
+	EdgeAddress = "164.92.247.225:9090"
 
 	LocalChainID = "edgenet"
-	LocalAddress = "0.0.0.0:9090"
+	LocalAddress = "161.35.19.190:9090"
 
 	//	MainChainID = "osmosis-1"
 	//	LocalAddress = ":9090"
@@ -117,7 +118,11 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		Short: "gov has a seeds that run to interact with the gov module",
 	}
 
-	// Localnet Config SetUp
+	auctionCmd := &cobra.Command{
+		Use:   "auction",
+		Short: "auction has a seeds that run to interact with the auction module",
+	}
+
 	conf := config.SetUp(
 		chainID,
 		address,
@@ -131,12 +136,15 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		DefaultDenoms,
 	)
 
-	// LocalCommands
 	authenticatorCmd.AddCommand(
 		as.SeedCreateOneClickTradingAccount(conf),
 		as.SeedSwapCmd(conf),
 		as.SeedRemoveAllAuthenticators(conf),
 		as.SeedCreateCosigner(conf),
+	)
+
+	auctionCmd.AddCommand(
+		auctionSeed.StartAuctionFlow(conf),
 	)
 
 	clCmd.AddCommand(
@@ -154,6 +162,7 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 
 	cmd.AddCommand(
 		authenticatorCmd,
+		auctionCmd,
 		clCmd,
 		stakingCmd,
 		govCmd,

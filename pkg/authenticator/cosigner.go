@@ -51,24 +51,24 @@ func CreateCosignerAccount(
 
 	// Create the first AllOfAuthenticator
 	initDataPrivKey0 := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "SignatureVerificationAuthenticator",
-		Data:              priv1.PubKey().Bytes(),
+		Type:   "SignatureVerification",
+		Config: priv1.PubKey().Bytes(),
 	}
 
 	initDataPrivKey1 := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "SignatureVerificationAuthenticator",
-		Data:              priv2.PubKey().Bytes(),
+		Type:   "SignatureVerification",
+		Config: priv2.PubKey().Bytes(),
 	}
 
 	// Create the message filter AnyOf authenticator
 	initDataMessageFilter1 := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "MessageFilterAuthenticator",
-		Data:              []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
+		Type:   "MessageFilter",
+		Config: []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
 	}
 
 	initDataMessageFilter2 := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "MessageFilterAuthenticator",
-		Data:              []byte(`{"@type":"/cosmos.bqnk"}`),
+		Type:   "MessageFilter",
+		Config: []byte(`{"@type":"/cosmos.bqnk"}`),
 	}
 
 	// Compose the data for cosigner authenticator
@@ -85,15 +85,15 @@ func CreateCosignerAccount(
 
 	dataAnyOf, err := json.Marshal(compositeAuthDataAnyOf)
 	initDataAnyOf := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "AnyOfAuthenticator",
-		Data:              dataAnyOf,
+		Type:   "AnyOf",
+		Config: dataAnyOf,
 	}
 
 	// This is the cosigner authenticator
 	dataAllOf, err := json.Marshal(compositeAuthDataAllOf)
 	initDataAllOf := authenticator.SubAuthenticatorInitData{
-		AuthenticatorType: "PartitionedAllOfAuthenticator",
-		Data:              dataAllOf,
+		Type:   "PartitionedAllOf",
+		Config: dataAllOf,
 	}
 
 	// Compose the AllOf and the AnyOf
@@ -106,7 +106,7 @@ func CreateCosignerAccount(
 	dataCompositeComplex, err := json.Marshal(compositeComplex)
 	addAllOfAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
 		Sender: accAddress.String(),
-		Type:   "AllOfAuthenticator",
+		Type:   "AllOf",
 		Data:   dataCompositeComplex,
 	}
 
