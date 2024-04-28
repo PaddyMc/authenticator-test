@@ -62,6 +62,37 @@ func SignAuthenticatorMsg(
 	cosigners map[int][]cryptotypes.PrivKey,
 	selectedAuthenticators []uint64,
 ) ([]byte, error) {
+	txBytes, err := SignAuthenticatorMsgWithHeight(
+		gen,
+		msgs,
+		sdk.Coins{sdk.NewInt64Coin("uosmo", 1000)},
+		300000,
+		chainID,
+		accNums,
+		accSeqs,
+		signers,
+		signatures,
+		cosigners,
+		selectedAuthenticators,
+		0,
+	)
+
+	return txBytes, err
+}
+
+// GenTx generates a signed mock transaction.
+func SignAuthenticatorMsgWithHeight(
+	gen client.TxConfig,
+	msgs []sdk.Msg,
+	feeAmt sdk.Coins,
+	gas uint64,
+	chainID string,
+	accNums, accSeqs []uint64,
+	signers, signatures []cryptotypes.PrivKey,
+	cosigners map[int][]cryptotypes.PrivKey,
+	selectedAuthenticators []uint64,
+	timeoutHeight uint64,
+) ([]byte, error) {
 	sigs := make([]signing.SignatureV2, len(signers))
 
 	// create a random length memo
@@ -108,7 +139,7 @@ func SignAuthenticatorMsg(
 	txBuilder.SetMemo(memo)
 	txBuilder.SetFeeAmount(feeAmt)
 	txBuilder.SetGasLimit(gas)
-	txBuilder.SetTimeoutHeight(0)
+	txBuilder.SetTimeoutHeight(timeoutHeight)
 	// TODO: set fee payer
 
 	// 2nd round: once all signer infos are set, every signer can sign.

@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 
+	tmservice "github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
@@ -12,11 +13,12 @@ import (
 	"github.com/osmosis-labs/osmosis/v24/app/params"
 )
 
-func SignAuthenticatorMsgMultiSigners(
+func SignAuthenticatorMsgMultiSignersBytes(
 	senderPrivKeys []cryptotypes.PrivKey,
 	signerPrivKeys []cryptotypes.PrivKey,
 	cosignerPrivKeys map[int][]cryptotypes.PrivKey,
 	encCfg params.EncodingConfig,
+	tm tmservice.ServiceClient,
 	ac authtypes.QueryClient,
 	txClient txtypes.ServiceClient,
 	chainID string,
@@ -48,11 +50,17 @@ func SignAuthenticatorMsgMultiSigners(
 
 		log.Println("Signer account: " + acc.GetAddress().String())
 		accNums = append(accNums, acc.GetAccountNumber())
-		accSeqs = append(accSeqs, acc.GetSequence())
+		// XXX: here we return + 1 to offset the seq
+		accSeqs = append(accSeqs, acc.GetSequence()+1)
+	}
+
+	block, err := tm.GetLatestBlock(context.Background(), &tmservice.GetLatestBlockRequest{})
+	if err != nil {
+		return nil, err
 	}
 
 	// Sign the message
-	txBytes, _ := key.SignAuthenticatorMsg(
+	txBytes, _ := key.SignAuthenticatorMsgWithHeight(
 		encCfg.TxConfig,
 		msgs,
 		sdk.Coins{sdk.NewInt64Coin("uosmo", 7000)},
@@ -64,6 +72,7 @@ func SignAuthenticatorMsgMultiSigners(
 		signerPrivKeys,
 		cosignerPrivKeys,
 		selectedAuthenticators,
+		uint64(block.Block.Header.Height)+1,
 	)
 
 	return txBytes, nil
