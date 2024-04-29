@@ -32,6 +32,7 @@ func StartAuctionFlow(seedConfig config.SeedConfig) *cobra.Command {
 				encCfg,
 				seedConfig.ChainID,
 				alice,
+				bob,
 			)
 			if err != nil {
 				return err
