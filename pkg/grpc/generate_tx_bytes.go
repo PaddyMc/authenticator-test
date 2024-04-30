@@ -24,8 +24,9 @@ func SignAuthenticatorMsgMultiSignersBytes(
 	chainID string,
 	msgs []sdk.Msg,
 	selectedAuthenticators []uint64,
+	sequenceOffset uint64,
 ) ([]byte, error) {
-	log.Println("Signing and broadcasting message flow")
+	log.Println("Creating signed txn to include in bundle")
 
 	var accNums []uint64
 	var accSeqs []uint64
@@ -51,7 +52,7 @@ func SignAuthenticatorMsgMultiSignersBytes(
 		log.Println("Signer account: " + acc.GetAddress().String())
 		accNums = append(accNums, acc.GetAccountNumber())
 		// XXX: here we return + 1 to offset the seq
-		accSeqs = append(accSeqs, acc.GetSequence()+1)
+		accSeqs = append(accSeqs, acc.GetSequence()+sequenceOffset)
 	}
 
 	block, err := tm.GetLatestBlock(context.Background(), &tmservice.GetLatestBlockRequest{})
