@@ -82,7 +82,8 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 				OsmoDenom,
 				LuncIBCDenom,
 				luncOsmoBalancerPool,
-				100000,
+				// 10_000 osmo
+				10000000000,
 			)
 			if err != nil {
 				// we expected this to fail
