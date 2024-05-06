@@ -67,7 +67,7 @@ func CreateOneClickTradingAccount(
 		`{"time_limit": {"end": "%d"}, "reset_period": "day", "limit": "10000"}`, future.UnixNano())
 	encodedParams := base64.StdEncoding.EncodeToString([]byte(jsonString))
 	initDataSpendLimit := authenticator.SubAuthenticatorInitData{
-		Type: "CosmwasmV1",
+		Type: "CosmwasmAuthenticatorV1",
 		Config: []byte(
 			`{"contract": "` + spendLimitContractAddress + `", "params": "` + encodedParams + `"}`),
 	}

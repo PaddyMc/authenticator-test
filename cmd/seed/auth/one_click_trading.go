@@ -35,7 +35,7 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 			//spendLimitContractAddress := "osmo1nvz4e7duzmchyk4res6tdlpxpxrl9nps6vl2htlevu0a59chdarsvds5d8"
 			//spendLimitContractAddress := "osmo1mf5dnx0wqv7s4v9r4ykkr7tr249pctjwxs4me5n96tch37p95ccsc3zehq"
 			//spendLimitContractAddress := "osmo133290w5vgjttasqhmqcw2x9g598vg6re8lw0q0jwljlep44xvfhsp04ev8"
-			spendLimitContractAddress := "osmo1x57l2yanux5277kht6udkgdxkkuynv6ndm5836x5ll4hgwcxfhlstmnwp3"
+			spendLimitContractAddress := "osmo19meazu70q77tzt9vzrp7d8pqf7wupcvfjqtmdtnkjqe9e0f2r5ds2er9l9"
 
 			log.Printf("Starting spend limit authenticator flow")
 			log.Printf("Adding spend limit authenticator")
@@ -82,7 +82,7 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 				OsmoDenom,
 				LuncIBCDenom,
 				luncOsmoBalancerPool,
-				100000000000,
+				100000,
 			)
 			if err != nil {
 				// we expected this to fail
