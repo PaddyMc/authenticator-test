@@ -11,22 +11,21 @@ import (
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"google.golang.org/grpc"
 
-	//	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
+	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
-	"github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 	"github.com/osmosis-labs/osmosis/v24/app/params"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
 
-func ParameterChangeProposal(
+func GovMessageProposal(
 	conn *grpc.ClientConn,
 	encCfg params.EncodingConfig,
 	chainID string,
 	voteKey *secp256k1.PrivKey,
 	authKey *secp256k1.PrivKey,
 	signerKey *secp256k1.PrivKey,
-	paramChange *proposal.ParameterChangeProposal,
+	msgs []sdk.Msg,
 ) error {
 	priv1 := voteKey
 	//priv2 := seedConfig.Keys[1]
@@ -36,33 +35,15 @@ func ParameterChangeProposal(
 	txClient := txtypes.NewServiceClient(conn)
 	ac := auth.NewQueryClient(conn)
 	govClient := govv1beta1.NewQueryClient(conn)
-	paramsClient := proposal.NewQueryClient(conn)
-	fmt.Println(paramsClient)
-	//func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
-	// change param for smart contract
-	//	changes := proposal.ParamChange{
-	//		Subspace: "authenticator",
-	//		Key:      "MaximumUnauthenticatedGas",
-	//		Value:    "100000",
-	//	}
-
-	//	paramChange := proposal.NewParameterChangeProposal(
-	//		"Update the max gas for authenticators",
-	//		"Updating the gas to 100000",
-	//		[]proposal.ParamChange{changes},
-	//	)
-
-	subspaces, err := paramsClient.Subspaces(
-		context.Background(),
-		&proposal.QuerySubspacesRequest{},
-	)
-	fmt.Println(subspaces)
-
-	changeParamMsg, err := govv1beta1.NewMsgSubmitProposal(
-		paramChange,
+	govMsg, err := govv1.NewMsgSubmitProposal(
+		msgs,
 		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: sdk.NewInt(2000000000)}},
-		accAddress,
+		accAddress.String(),
+		"title",
+		"metadata",
+		"summary",
+		false,
 	)
 	if err != nil {
 		return err
@@ -75,7 +56,7 @@ func ParameterChangeProposal(
 		ac,
 		txClient,
 		chainID,
-		[]sdk.Msg{changeParamMsg},
+		[]sdk.Msg{govMsg},
 		[]uint64{},
 	)
 	if err != nil {

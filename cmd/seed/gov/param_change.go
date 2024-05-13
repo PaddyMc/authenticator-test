@@ -3,16 +3,22 @@ package seed
 import (
 	"log"
 
-	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	"github.com/spf13/cobra"
+
+	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	auctiontypes "github.com/skip-mev/block-sdk/x/auction/types"
 
 	"github.com/osmosis-labs/autenticator-test/pkg/config"
 	gov "github.com/osmosis-labs/autenticator-test/pkg/gov"
+	"github.com/osmosis-labs/osmosis/osmomath"
 )
 
 func StartGovernanceFlow(seedConfig config.SeedConfig) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "start-gov-flow",
+		Use:   "start-param-change-flow",
 		Short: "this command does lots of gov transaction",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -27,14 +33,43 @@ func StartGovernanceFlow(seedConfig config.SeedConfig) *cobra.Command {
 
 			log.Printf("Starting governance flow")
 
-			log.Printf("Creating cl postion for gov module")
-			err := gov.GovCreateClPosition(
+			//		changes := proposal.ParamChange{
+			//			Subspace: "smartaccount",
+			//			Key:      "MaximumUnauthenticatedGas",
+			//			Value:    `"105000"`,
+			//		}
+
+			//		paramChange := proposal.NewParameterChangeProposal(
+			//			"Update the max gas for authenticators",
+			//			"Updating the gas to 100000",
+			//			[]proposal.ParamChange{changes},
+			//		)
+
+			//		fmt.Println(auctiontypes.KeyParams)
+			govAddr := authtypes.NewModuleAddress(govtypes.ModuleName).String()
+			AuctionParams := auctiontypes.Params{
+				MaxBundleSize:          5,
+				ReserveFee:             sdk.NewCoin("uosmo", sdk.NewInt(1000000)),
+				MinBidIncrement:        sdk.NewCoin("uosmo", sdk.NewInt(1000000)),
+				EscrowAccountAddress:   auctiontypes.DefaultEscrowAccountAddress,
+				FrontRunningProtection: true,
+				ProposerFee:            osmomath.MustNewDecFromStr("0.05"),
+			}
+
+			updateParamsMsg := &auctiontypes.MsgUpdateParams{
+				Authority: govAddr,
+				Params:    AuctionParams,
+			}
+
+			log.Printf("Creating param change proposal gov module")
+			err := gov.GovMessageProposal(
 				conn,
 				encCfg,
 				seedConfig.ChainID,
 				alice,
 				bob,
 				alice,
+				[]sdk.Msg{updateParamsMsg},
 			)
 			if err != nil {
 				return err

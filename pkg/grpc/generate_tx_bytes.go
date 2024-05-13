@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	tmservice "github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
@@ -49,7 +50,7 @@ func SignAuthenticatorMsgMultiSignersBytes(
 			return nil, err
 		}
 
-		log.Println("Signer account: " + acc.GetAddress().String())
+		log.Println("Signer account: " + acc.GetAddress().String() + " sequence: " + fmt.Sprint(acc.GetSequence()))
 		accNums = append(accNums, acc.GetAccountNumber())
 		// XXX: here we return + 1 to offset the seq
 		accSeqs = append(accSeqs, acc.GetSequence()+sequenceOffset)

@@ -32,6 +32,9 @@ const (
 	LocalChainID = "edgenet"
 	LocalAddress = "161.35.19.190:9090"
 
+	TestnetChainID = "osmo-test-5"
+	TestnetAddress = "164.92.184.79:9090"
+
 	//	MainChainID = "osmosis-1"
 	//	LocalAddress = ":9090"
 
@@ -83,10 +86,14 @@ func NewRootCmd() *cobra.Command {
 	// edgenet commands
 	edgeCmd := SetUpCmds("edge", EdgeChainID, EdgeAddress)
 
+	// edgenet commands
+	testnetCmd := SetUpCmds("testnet", TestnetChainID, TestnetAddress)
+
 	// ROOT command
 	rootCmd.AddCommand(
 		localCmd,
 		edgeCmd,
+		testnetCmd,
 	)
 
 	return rootCmd

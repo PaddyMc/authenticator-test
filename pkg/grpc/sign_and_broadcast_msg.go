@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -48,7 +49,7 @@ func SignAndBroadcastAuthenticatorMsgMultiSigners(
 			return err
 		}
 
-		log.Println("Signer account: " + acc.GetAddress().String())
+		log.Println("Signer account: " + acc.GetAddress().String() + " sequence: " + fmt.Sprint(acc.GetSequence()))
 		accNums = append(accNums, acc.GetAccountNumber())
 		accSeqs = append(accSeqs, acc.GetSequence())
 	}

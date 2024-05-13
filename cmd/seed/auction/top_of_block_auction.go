@@ -19,8 +19,8 @@ func StartAuctionFlow(seedConfig config.SeedConfig) *cobra.Command {
 			conn := seedConfig.GRPCConnection
 			encCfg := seedConfig.EncodingConfig
 
-			alice := seedConfig.Keys[1]
-			bob := seedConfig.Keys[2]
+			alice := seedConfig.Keys[0]
+			bob := seedConfig.Keys[1]
 
 			cosigners := make(map[int][]cryptotypes.PrivKey)
 			cosigners[1] = []cryptotypes.PrivKey{alice, bob}

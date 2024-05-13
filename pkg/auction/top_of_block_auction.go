@@ -32,6 +32,7 @@ func SubmitTopOfBlockAuction(
 	// set up all clients
 	auctionModuleAccount := "osmo1j4yzhgjm00ch3h0p9kel7g8sp6g045qfnc9kmc"
 	AuctionUSDCDenom := "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+	//AuctionUSDCDenom := "uosmo"
 	osmoDenom := "uosmo"
 	AtomIBCDenom := "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2"
 
@@ -80,31 +81,31 @@ func SubmitTopOfBlockAuction(
 		1,
 	)
 
-	swapTokenMsg2 := &poolmanagertypes.MsgSwapExactAmountOut{
-		Sender: accAddress.String(),
-		Routes: []poolmanagertypes.SwapAmountOutRoute{
-			{
-				PoolId:       1265,
-				TokenInDenom: osmoDenom,
-			},
-		},
-		TokenInMaxAmount: osmomath.NewInt(1000000000),
-		TokenOut:         sdk.NewCoin(AtomIBCDenom, osmomath.NewInt(10000000)),
-	}
-	txBytes2, err := chaingrpc.SignAuthenticatorMsgMultiSignersBytes(
-		[]cryptotypes.PrivKey{signerKey},
-		[]cryptotypes.PrivKey{signerKey},
-		nil,
-		encCfg,
-		tm,
-		ac,
-		txClient,
-		chainID,
-		[]sdk.Msg{swapTokenMsg2},
-		[]uint64{},
-		2,
-	)
-	bundle := [][]byte{txBytes1, txBytes2}
+	//	swapTokenMsg2 := &poolmanagertypes.MsgSwapExactAmountOut{
+	//		Sender: accAddress.String(),
+	//		Routes: []poolmanagertypes.SwapAmountOutRoute{
+	//			{
+	//				PoolId:       1265,
+	//				TokenInDenom: osmoDenom,
+	//			},
+	//		},
+	//		TokenInMaxAmount: osmomath.NewInt(1000000000),
+	//		TokenOut:         sdk.NewCoin(AtomIBCDenom, osmomath.NewInt(10000000)),
+	//	}
+	//	txBytes2, err := chaingrpc.SignAuthenticatorMsgMultiSignersBytes(
+	//		[]cryptotypes.PrivKey{signerKey},
+	//		[]cryptotypes.PrivKey{signerKey},
+	//		nil,
+	//		encCfg,
+	//		tm,
+	//		ac,
+	//		txClient,
+	//		chainID,
+	//		[]sdk.Msg{swapTokenMsg2},
+	//		[]uint64{},
+	//		2,
+	//	)
+	bundle := [][]byte{txBytes1}
 
 	//	sequenceOffset := uint64(1)
 	bidMsg := &auctiontypes.MsgAuctionBid{

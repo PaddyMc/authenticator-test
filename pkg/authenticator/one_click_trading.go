@@ -101,6 +101,9 @@ func CreateOneClickTradingAccount(
 		[]sdk.Msg{addAllOfAuthenticatorMsg},
 		[]uint64{},
 	)
+	if err != nil {
+		return err
+	}
 
 	allAuthenticatorsPostResp, err := authenticatorClient.GetAuthenticators(
 		context.Background(),

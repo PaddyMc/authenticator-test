@@ -197,6 +197,7 @@ func SignAuthenticatorMsgWithHeight(
 			return nil, err
 		}
 	}
+	//fmt.Println(txBuilder.GetTx())
 
 	txBytes, err := gen.TxEncoder()(txBuilder.GetTx())
 	if err != nil {
