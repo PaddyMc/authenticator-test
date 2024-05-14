@@ -23,8 +23,8 @@ func CreateGRPCConnection(addr string) *grpc.ClientConn {
 	if err != nil {
 		// TODO: fix this wart, handle the error gracefully somewhere
 		// We run GRPCConnection for the edge node and the local node we ignore errors here unil this refactor
-		log.Println(
-			"Local client not connected, this error is here as you've attempted to run local seeds with no local node running")
+		log.Printf(
+			"%s client not connected, this error is here as you've attempted to run seeds with no node running", addr)
 
 		return nil
 	}

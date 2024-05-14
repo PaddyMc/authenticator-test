@@ -3,6 +3,7 @@ package gov
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
@@ -37,21 +38,6 @@ func ParameterChangeProposal(
 	ac := auth.NewQueryClient(conn)
 	govClient := govv1beta1.NewQueryClient(conn)
 	paramsClient := proposal.NewQueryClient(conn)
-	fmt.Println(paramsClient)
-	//func NewQueryClient(cc grpc1.ClientConn) QueryClient {
-
-	// change param for smart contract
-	//	changes := proposal.ParamChange{
-	//		Subspace: "authenticator",
-	//		Key:      "MaximumUnauthenticatedGas",
-	//		Value:    "100000",
-	//	}
-
-	//	paramChange := proposal.NewParameterChangeProposal(
-	//		"Update the max gas for authenticators",
-	//		"Updating the gas to 100000",
-	//		[]proposal.ParamChange{changes},
-	//	)
 
 	subspaces, err := paramsClient.Subspaces(
 		context.Background(),
@@ -89,6 +75,7 @@ func ParameterChangeProposal(
 		},
 	)
 	latestProposalID := proposals.Proposals[len(proposals.Proposals)-1].ProposalId
+	log.Printf("Voting yes on proposal id: %d", latestProposalID)
 
 	voteMsg := govv1beta1.NewMsgVote(accAddress, latestProposalID, govv1beta1.OptionYes)
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
@@ -106,13 +93,17 @@ func ParameterChangeProposal(
 		return err
 	}
 
-	proposals, err = govClient.Proposals(
+	proposal, err := govClient.Proposal(
 		context.Background(),
-		&govv1beta1.QueryProposalsRequest{
-			Depositor: accAddress.String(),
+		&govv1beta1.QueryProposalRequest{
+			ProposalId: latestProposalID,
 		},
 	)
-	fmt.Println(proposals.Proposals[len(proposals.Proposals)-1])
+	if proposal.Proposal.Status == 2 {
+		log.Printf("Proposal passed id: %d", latestProposalID)
+	} else {
+		log.Printf("Proposal failed id: %d", latestProposalID)
+	}
 
 	return nil
 }

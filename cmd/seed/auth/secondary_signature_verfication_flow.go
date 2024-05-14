@@ -61,6 +61,7 @@ func SeedSwapCmd(seedConfig config.SeedConfig) *cobra.Command {
 				return err
 			}
 
+			log.Printf("Ensure signing with the wrong signature fails")
 			err = pm.SwapTokensWithLastestAuthenticator(
 				conn,
 				encCfg,
@@ -75,8 +76,8 @@ func SeedSwapCmd(seedConfig config.SeedConfig) *cobra.Command {
 				100000000,
 			)
 			if err != nil {
+				// We don't return an error here as we expect a failure, log it to be able to verify the error
 				log.Println("Transaction Failed...", err.Error())
-				// return err
 			}
 
 			log.Printf("Removing spend limit authenticator")

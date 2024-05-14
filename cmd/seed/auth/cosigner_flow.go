@@ -28,13 +28,9 @@ func SeedCreateCosigner(seedConfig config.SeedConfig) *cobra.Command {
 
 			OsmoDenom := seedConfig.DenomMap["OsmoDenom"]
 			AtomIBCDenom := seedConfig.DenomMap["AtomIBCDenom"]
-			//			LuncIBCDenom := seedConfig.DenomMap["LuncIBCDenom"]
 			osmoAtomClPool := uint64(1400)
-			//			luncOsmoBalancerPool := uint64(561)
-			//			selectedAuthenticator := []int32{1}
 
-			log.Printf("Starting spend limit authenticator flow")
-			log.Printf("Adding spend limit authenticator")
+			log.Printf("Adding cosigner authenticator")
 			err := as.CreateCosignerAccount(
 				conn,
 				encCfg,
@@ -46,8 +42,7 @@ func SeedCreateCosigner(seedConfig config.SeedConfig) *cobra.Command {
 				return err
 			}
 
-			log.Printf("Starting swap flow")
-			// Sign the message
+			log.Printf("Starting swap flow with cosigner")
 			err = pm.SwapTokensWithLastestAuthenticator(
 				conn,
 				encCfg,

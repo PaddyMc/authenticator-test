@@ -26,11 +26,14 @@ const (
 	TestKeyUser4         = "3d23af3840f0535863518fa8bbb8b98a231aa0bd2eb181911bfd8930f0ada7f9"
 	AccountAddressPrefix = "osmo"
 
+	LocalChainID = "edgenet"
+	LocalAddress = "localhost:9090"
+
+	Edge2ChainID = "edgenet"
+	Edge2Address = "161.35.19.190:9090"
+
 	EdgeChainID = "smartaccount"
 	EdgeAddress = "164.92.247.225:9090"
-
-	LocalChainID = "edgenet"
-	LocalAddress = "161.35.19.190:9090"
 
 	TestnetChainID = "osmo-test-5"
 	TestnetAddress = "164.92.184.79:9090"
@@ -84,15 +87,19 @@ func NewRootCmd() *cobra.Command {
 	localCmd := SetUpCmds("local", LocalChainID, LocalAddress)
 
 	// edgenet commands
-	edgeCmd := SetUpCmds("edge", EdgeChainID, EdgeAddress)
+	edgeCmd := SetUpCmds("edge1", EdgeChainID, EdgeAddress)
 
-	// edgenet commands
+	// edgenet2 commands
+	edge2Cmd := SetUpCmds("edge2", Edge2ChainID, Edge2Address)
+
+	// testnet commands
 	testnetCmd := SetUpCmds("testnet", TestnetChainID, TestnetAddress)
 
 	// ROOT command
 	rootCmd.AddCommand(
 		localCmd,
 		edgeCmd,
+		edge2Cmd,
 		testnetCmd,
 	)
 
@@ -148,6 +155,7 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		as.SeedSwapCmd(conf),
 		as.SeedRemoveAllAuthenticators(conf),
 		as.SeedCreateCosigner(conf),
+		as.StartActivateSmartAccountFlow(conf),
 	)
 
 	auctionCmd.AddCommand(
