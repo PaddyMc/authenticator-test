@@ -1,0 +1,1030 @@
+{
+  "price_resolution_config": {
+    "quote_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4",
+    "staleness_threshold": "3600000000000",
+    "twap_duration": "3600000000000"
+  },
+  "tracked_denoms": [
+    {
+      "denom": "uosmo",
+      "swap_routes": [
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2",
+      "swap_routes": [
+        {
+          "pool_id": "1251",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/D79E7D83AB399BFFF93433E54FAA480C191248FC556924A2A8351AE2638B3877",
+      "swap_routes": [
+        {
+          "pool_id": "1247",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/1480B8FD20AD5FCAE81EA87584D269547DD4D436843C1D20F15E00EB64743EF4",
+      "swap_routes": [
+        {
+          "pool_id": "1301",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/D189335C6E4A68B513C10AB227BF1C1D38C746766278BA3EEB4FB14124F1D858",
+      "swap_routes": [
+        {
+          "pool_id": "1223",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/EA1D43981D5C9A1C4AAEA9C23BB1D4FA126BA9BC7020A25E0AE4AA841EA25DC5",
+      "swap_routes": [
+        {
+          "pool_id": "1264",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/4ABBEF4C8926DDDB320AE5188CFD63267ABBCEFC0583E4AE05D6E5AA2401DDAB",
+      "swap_routes": [
+        {
+          "pool_id": "1220",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/56D7C03B8F6A07AD322EEE1BEF3AE996E09D1C1E34C27CF37E0D4A0AC5972516",
+      "swap_routes": [
+        {
+          "pool_id": "1669",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "factory/osmo1z0qrq605sjgcqpylfl4aa6s90x738j7m58wyatt0tdzflg2ha26q67k743/wbtc",
+      "swap_routes": [
+        {
+          "pool_id": "1436",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/64BA6E31FE887D66C6F8F31C7B1A80C7CA179239677B4088BB55F5EA07DBE273",
+      "swap_routes": [
+        {
+          "pool_id": "1319",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/094FB70C3006906F67F5D674073D2DAFAFB41537E7033098F5C752F211E7B6C2",
+      "swap_routes": [
+        {
+          "pool_id": "1671",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/69110FF673D70B39904FF056CFDFD58A90BEC3194303F45C32CB91B8B0A738EA",
+      "swap_routes": [
+        {
+          "pool_id": "1690",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/9A76CDF0CBCEF37923F32518FA15E5DC92B9F56128292BC4D63C4AEA76CBB110",
+      "swap_routes": [
+        {
+          "pool_id": "1450",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/903A61A498756EA560B85A85132D3AEE21B5DEDD41213725D22ABF276EA6945E",
+      "swap_routes": [
+        {
+          "pool_id": "1094",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/D1542AA8762DB13087D8364F3EA6509FD6F009A34F00426AF9E4F9FA85CBBF1F",
+      "swap_routes": [
+        {
+          "pool_id": "1277",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/831F0B1BBB1D08A2B75311892876D71565478C532967545476DF4C2D7492E48C",
+      "swap_routes": [
+        {
+          "pool_id": "1246",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "factory/osmo1f5vfcph2dvfeqcqkhetwv75fda69z7e5c2dldm3kvgj23crkv6wqcn47a0/umilkTIA",
+      "swap_routes": [
+        {
+          "pool_id": "1339",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/C140AFD542AE77BD7DCC83F13FDD8C5E5BB8C4929785E6EC2F4C636F98F17901",
+      "swap_routes": [
+        {
+          "pool_id": "1136",
+          "token_out_denom": "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2"
+        },
+        {
+          "pool_id": "1282",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/0954E1C28EB7AF5B72D24F3BC2B47BBB2FDF91BDDFD57B74B99E133AED40972A",
+      "swap_routes": [
+        {
+          "pool_id": "1095",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1464",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/8E697BDABE97ACE8773C6DF7402B2D1D5104DD1EEABE12608E3469B7F64C15BA",
+      "swap_routes": [
+        {
+          "pool_id": "832",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1464",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/46B44899322F3CD854D2D46DEEF881958467CDD4B3B10086DA49296BBED94BED",
+      "swap_routes": [
+        {
+          "pool_id": "1097",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/5D1F516200EE8C6B2354102143B78A2DEDA25EDE771AC0F8DC3C1837C8FD4447",
+      "swap_routes": [
+        {
+          "pool_id": "1516",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/698350B8A61D575025F3ED13E9AC9C0F45C89DEFE92F76D5838F1D3C1A7FF7C9",
+      "swap_routes": [
+        {
+          "pool_id": "1476",
+          "token_out_denom": "ibc/D79E7D83AB399BFFF93433E54FAA480C191248FC556924A2A8351AE2638B3877"
+        },
+        {
+          "pool_id": "1321",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/71F11BC0AF8E526B80E44172EBA9D3F0A8E03950BB882325435691EBC9450B1D",
+      "swap_routes": [
+        {
+          "pool_id": "1114",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1464",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/3BCCC93AD5DF58D11A6F8A05FA8BC801CBA0BA61A981F57E91B8B598BF8061CB",
+      "swap_routes": [
+        {
+          "pool_id": "1102",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4",
+      "swap_routes": [
+        {
+          "pool_id": "1228",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/92BE0717F4678905E53F4E45B2DED18BC0CB97BF1F8B6A25AFEDF3D5A879B4D5",
+      "swap_routes": [
+        {
+          "pool_id": "1224",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/CEE970BB3D26F4B907097B6B660489F13F3B0DA765B83CC7D9A0BC0CE220FA6F",
+      "swap_routes": [
+        {
+          "pool_id": "1159",
+          "token_out_denom": "ibc/4ABBEF4C8926DDDB320AE5188CFD63267ABBCEFC0583E4AE05D6E5AA2401DDAB"
+        },
+        {
+          "pool_id": "1220",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/1E43D59E565D41FB4E54CA639B838FFD5BCFC20003D330A56CB1396231AA1CBA",
+      "swap_routes": [
+        {
+          "pool_id": "1294",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/126DA09104B71B164883842B769C0E9EC1486C0887D27A9999E395C2C8FB5682",
+      "swap_routes": [
+        {
+          "pool_id": "1324",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/BB6BCDB515050BAE97516111873CCD7BCF1FD0CCB723CC12F3C4F704D6C646CE",
+      "swap_routes": [
+        {
+          "pool_id": "1161",
+          "token_out_denom": "ibc/4ABBEF4C8926DDDB320AE5188CFD63267ABBCEFC0583E4AE05D6E5AA2401DDAB"
+        },
+        {
+          "pool_id": "1220",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/884EBC228DFCE8F1304D917A712AA9611427A6C1ECC3179B2E91D7468FB091A2",
+      "swap_routes": [
+        {
+          "pool_id": "1687",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/E6931F78057F7CC5DA0FD6CEF82FF39373A6E0452BF1FD76910B93292CF356C1",
+      "swap_routes": [
+        {
+          "pool_id": "1092",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/2DA9C149E9AD2BD27FEFA635458FB37093C256C1A940392634A16BEA45262604",
+      "swap_routes": [
+        {
+          "pool_id": "1104",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/2F21E6D4271DE3F561F20A02CD541DAF7405B1E9CB3B9B07E3C2AC7D8A4338A5",
+      "swap_routes": [
+        {
+          "pool_id": "1431",
+          "token_out_denom": "ibc/EA1D43981D5C9A1C4AAEA9C23BB1D4FA126BA9BC7020A25E0AE4AA841EA25DC5"
+        },
+        {
+          "pool_id": "1278",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/6AE98883D4D5D5FF9E50D7130F1305DA2FFA0C652D1DD9C123657C6B4EB2DF8A",
+      "swap_routes": [
+        {
+          "pool_id": "722",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/A8CA5EE328FA10C9519DF6057DA1F69682D28F7D0F5CCC7ECB72E3DCA2D157A4",
+      "swap_routes": [
+        {
+          "pool_id": "1098",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/D176154B0C63D1F9C6DCFB4F70349EBF2E2B5A87A05902F57A6AE92B863E9AEC",
+      "swap_routes": [
+        {
+          "pool_id": "1768",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/23AB778D694C1ECFC59B91D8C399C115CC53B0BD1C61020D8E19519F002BDD85",
+      "swap_routes": [
+        {
+          "pool_id": "1375",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/A0CC0CF735BFB30E730C70019D4218A1244FF383503FF7579C9201AB93CA9293",
+      "swap_routes": [
+        {
+          "pool_id": "1101",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/573FCD90FACEE750F55A8864EF7D38265F07E5A9273FA0E8DAFD39951332B580",
+      "swap_routes": [
+        {
+          "pool_id": "1447",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/9BBA9A1C257E971E38C1422780CE6F0B0686F0A3085E2D61118D904BFE0F5F5E",
+      "swap_routes": [
+        {
+          "pool_id": "1372",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/BE1BB42D4BE3C30D50B68D7C41DB4DFCE9678E8EF8C539F6E6A9345048894FCC",
+      "swap_routes": [
+        {
+          "pool_id": "560",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/8242AD24008032E457D2E12D46588FD39FB54FB29680C6C7663D296B383C37C4",
+      "swap_routes": [
+        {
+          "pool_id": "1316",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/0CD3A0285E1341859B5E86B6AB7682F023D03E97607CCC1DC95706411D866DF7",
+      "swap_routes": [
+        {
+          "pool_id": "1636",
+          "token_out_denom": "ibc/69110FF673D70B39904FF056CFDFD58A90BEC3194303F45C32CB91B8B0A738EA"
+        },
+        {
+          "pool_id": "1690",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/208B2F137CDE510B44C41947C045CFDC27F996A9D990EA64460BDD5B3DBEB2ED",
+      "swap_routes": [
+        {
+          "pool_id": "1647",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/E09ED39F390EC51FA9F3F69BEA08B5BBE6A48B3057B2B1C3467FAAE9E58B021B",
+      "swap_routes": [
+        {
+          "pool_id": "796",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/B9E0A1A524E98BB407D3CED8720EFEFD186002F90C1B1B7964811DD0CCC12228",
+      "swap_routes": [
+        {
+          "pool_id": "1111",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/75345531D87BD90BF108BE7240BD721CB2CB0A1F16D4EBA71B09EC3C43E15C8F",
+      "swap_routes": [
+        {
+          "pool_id": "1253",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/7A08C6F11EF0F59EB841B9F788A87EC9F2361C7D9703157EC13D940DC53031FA",
+      "swap_routes": [
+        {
+          "pool_id": "1273",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/37CB3078432510EE57B9AFA8DBE028B33AE3280A144826FEAC5F2334CF2C5539",
+      "swap_routes": [
+        {
+          "pool_id": "1361",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/785AFEC6B3741100D15E7AF01374E3C4C36F24888E96479B1C33F5C71F364EF9",
+      "swap_routes": [
+        {
+          "pool_id": "1728",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "factory/osmo1mlng7pz4pnyxtpq0akfwall37czyk9lukaucsrn30ameplhhshtqdvfm5c/ulvn",
+      "swap_routes": [
+        {
+          "pool_id": "1337",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/67795E528DF67C5606FC20F824EA39A6EF55BA133F4DC79C90A8C47A0901E17C",
+      "swap_routes": [
+        {
+          "pool_id": "1110",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1449",
+          "token_out_denom": "ibc/9A76CDF0CBCEF37923F32518FA15E5DC92B9F56128292BC4D63C4AEA76CBB110"
+        },
+        {
+          "pool_id": "1450",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/9712DBB13B9631EDFA9BF61B55F1B2D290B2ADB67E3A4EB3A875F3B6081B3B84",
+      "swap_routes": [
+        {
+          "pool_id": "1108",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/8061A06D3BD4D52C4A28FFECF7150D370393AF0BA661C3776C54FF32836C3961",
+      "swap_routes": [
+        {
+          "pool_id": "648",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/35CECC330D11DD00FACB555D07687631E0BC7D226260CC5F015F6D7980819533",
+      "swap_routes": [
+        {
+          "pool_id": "1493",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "factory/osmo1s794h9rxggytja3a4pmwul53u98k06zy2qtrdvjnfuxruh7s8yjs6cyxgd/ucdt",
+      "swap_routes": [
+        {
+          "pool_id": "1268",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0",
+      "swap_routes": [
+        {
+          "pool_id": "800",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/F3166F4D31D6BA1EC6C9F5536F5DDDD4CC93DBA430F7419E7CDC41C497944A65",
+      "swap_routes": [
+        {
+          "pool_id": "1244",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/1B708808D372E959CD4839C594960309283424C775F4A038AAEBE7F83A988477",
+      "swap_routes": [
+        {
+          "pool_id": "1314",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/A1830DECC0B742F0B2044FF74BE727B5CF92C9A28A9235C3BACE4D24A23504FA",
+      "swap_routes": [
+        {
+          "pool_id": "1320",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/F4A070A6D78496D53127EA85C094A9EC87DFC1F36071B8CCDDBD020F933D213D",
+      "swap_routes": [
+        {
+          "pool_id": "840",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1449",
+          "token_out_denom": "ibc/9A76CDF0CBCEF37923F32518FA15E5DC92B9F56128292BC4D63C4AEA76CBB110"
+        },
+        {
+          "pool_id": "1450",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/D9AFCECDD361D38302AA66EB3BAC23B95234832C51D12489DC451FA2B7C72782",
+      "swap_routes": [
+        {
+          "pool_id": "1041",
+          "token_out_denom": "ibc/D189335C6E4A68B513C10AB227BF1C1D38C746766278BA3EEB4FB14124F1D858"
+        },
+        {
+          "pool_id": "1223",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/65381C5F3FD21442283D56925E62EA524DED8B6927F0FF94E21E0020954C40B5",
+      "swap_routes": [
+        {
+          "pool_id": "1297",
+          "token_out_denom": "ibc/EA1D43981D5C9A1C4AAEA9C23BB1D4FA126BA9BC7020A25E0AE4AA841EA25DC5"
+        },
+        {
+          "pool_id": "1264",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/1CDF9C7D073DD59ED06F15DB08CC0901F2A24759BE70463570E8896F9A444ADF",
+      "swap_routes": [
+        {
+          "pool_id": "1640",
+          "token_out_denom": "ibc/5D1F516200EE8C6B2354102143B78A2DEDA25EDE771AC0F8DC3C1837C8FD4447"
+        },
+        {
+          "pool_id": "1516",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/CE5BFF1D9BADA03BB5CCA5F56939392A761B53A10FBD03B37506669C3218D3B2",
+      "swap_routes": [
+        {
+          "pool_id": "693",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/7C4D60AA95E5A7558B0A364860979CA34B7FF8AAF255B87AF9E879374470CEC0",
+      "swap_routes": [
+        {
+          "pool_id": "1106",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/57AA1A70A4BC9769C525EBF6386F7A21536E04A79D62E1981EFCEF9428EBB205",
+      "swap_routes": [
+        {
+          "pool_id": "1105",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1449",
+          "token_out_denom": "ibc/9A76CDF0CBCEF37923F32518FA15E5DC92B9F56128292BC4D63C4AEA76CBB110"
+        },
+        {
+          "pool_id": "1450",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/2B30802A0B03F91E4E16D6175C9B70F2911377C1CAE9E50FF011C821465463F9",
+      "swap_routes": [
+        {
+          "pool_id": "1241",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/FE2CD1E6828EC0FAB8AF39BAC45BC25B965BA67CCBC50C13A14BD610B0D1E2C4",
+      "swap_routes": [
+        {
+          "pool_id": "1520",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/9F9B07EF9AD291167CF5700628145DE1DEB777C2CFC7907553B24446515F6D0E",
+      "swap_routes": [
+        {
+          "pool_id": "633",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1464",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/E7905742CE2EA4EA5D592527DC89220C59B617DE803939FE7293805A64B484D7",
+      "swap_routes": [
+        {
+          "pool_id": "1623",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/6F62F01D913E3FFE472A38C78235B8F021B511BC6596ADFF02615C8F83D3B373",
+      "swap_routes": [
+        {
+          "pool_id": "1427",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1704",
+          "token_out_denom": "ibc/E42006ED917C769EDE1B474650EEA6BFE3F97958912B9206DD7010A28D01D9D5"
+        },
+        {
+          "pool_id": "1315",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/613BF0BF2F2146AE9941E923725745E931676B2C14E9768CD609FA0849B2AE13",
+      "swap_routes": [
+        {
+          "pool_id": "1652",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/635CB83EF1DFE598B10A3E90485306FD0D47D34217A4BE5FD9977FA010A5367D",
+      "swap_routes": [
+        {
+          "pool_id": "1697",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1245",
+          "token_out_denom": "ibc/831F0B1BBB1D08A2B75311892876D71565478C532967545476DF4C2D7492E48C"
+        },
+        {
+          "pool_id": "1351",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/5DD1F95ED336014D00CE2520977EC71566D282F9749170ADC83A392E0EA7426A",
+      "swap_routes": [
+        {
+          "pool_id": "1397",
+          "token_out_denom": "ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4"
+        },
+        {
+          "pool_id": "1228",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/5E2DFDF1734137302129EA1C1BA21A580F96F778D4F021815EA4F6DB378DA1A4",
+      "swap_routes": [
+        {
+          "pool_id": "900",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/7ED954CFFFC06EE8419387F3FC688837FF64EF264DE14219935F724EEEDBF8D3",
+      "swap_routes": [
+        {
+          "pool_id": "1020",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1245",
+          "token_out_denom": "ibc/831F0B1BBB1D08A2B75311892876D71565478C532967545476DF4C2D7492E48C"
+        },
+        {
+          "pool_id": "1351",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/AB589511ED0DD5FA56171A39978AFBF1371DB986EC1C3526CE138A16377E39BB",
+      "swap_routes": [
+        {
+          "pool_id": "789",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1263",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/1DCC8A6CB5689018431323953344A9F6CC4D0BFB261E88C9F7777372C10CD076",
+      "swap_routes": [
+        {
+          "pool_id": "1472",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/A1AC7F9EE2F643A68E3A35BCEB22040120BEA4059773BB56985C76BDFEBC71D9",
+      "swap_routes": [
+        {
+          "pool_id": "813",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1449",
+          "token_out_denom": "ibc/9A76CDF0CBCEF37923F32518FA15E5DC92B9F56128292BC4D63C4AEA76CBB110"
+        },
+        {
+          "pool_id": "1450",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/EDD6F0D66BCD49C1084FB2C35353B4ACD7B9191117CE63671B61320548F7C89D",
+      "swap_routes": [
+        {
+          "pool_id": "1318",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/F867AE2112EFE646EC71A25CD2DFABB8927126AC1E19F1BBF0FF693A4ECA05DE",
+      "swap_routes": [
+        {
+          "pool_id": "626",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1449",
+          "token_out_denom": "ibc/9A76CDF0CBCEF37923F32518FA15E5DC92B9F56128292BC4D63C4AEA76CBB110"
+        },
+        {
+          "pool_id": "1450",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/4E5444C35610CC76FC94E7F7886B93121175C28262DDFDDE6F84E82BF2425452",
+      "swap_routes": [
+        {
+          "pool_id": "1109",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "ibc/B547DC9B897E7C3AA5B824696110B8E3D2C31E3ED3F02FF363DCBAD82457E07E",
+      "swap_routes": [
+        {
+          "pool_id": "577",
+          "token_out_denom": "uosmo"
+        },
+        {
+          "pool_id": "1221",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    },
+    {
+      "denom": "uion",
+      "swap_routes": [
+        {
+          "pool_id": "1717",
+          "token_out_denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4"
+        }
+      ]
+    }
+  ],
+  "admin": "osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj"
+}
+

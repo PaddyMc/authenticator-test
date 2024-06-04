@@ -2,7 +2,6 @@ package seed
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -10,6 +9,7 @@ import (
 	"github.com/CosmWasm/wasmd/x/wasm/ioutils"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/query"
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 
@@ -22,26 +22,28 @@ import (
 	"github.com/osmosis-labs/osmosis/v24/app/params"
 )
 
-type CosignerInstantiateMsg struct {
-	PubKeys [][]byte `json:"pubkeys"`
-}
-
 func UploadAndInstantiateContract(
 	conn *grpc.ClientConn,
 	encCfg params.EncodingConfig,
 	chainID string,
-	contractLocation string,
 	uploadKey *secp256k1.PrivKey,
 	signerKey *secp256k1.PrivKey,
+	contractLocation string,
+	instantiateMsgPath string,
 ) error {
 	priv1 := uploadKey
-	priv2 := signerKey
+	//	priv2 := signerKey
 	accAddress := sdk.AccAddress(priv1.PubKey().Address())
 
 	// set up all clients
 	txClient := txtypes.NewServiceClient(conn)
 	ac := auth.NewQueryClient(conn)
 	wasmClient := wasmtypes.NewQueryClient(conn)
+
+	instantiateMsgBz, err := os.ReadFile(instantiateMsgPath)
+	if err != nil {
+		panic(err)
+	}
 
 	// "./cw_authenticators/cosigner_authenticator.wasm"
 	wasm, err := os.ReadFile(contractLocation)
@@ -81,18 +83,22 @@ func UploadAndInstantiateContract(
 
 	codes, err := wasmClient.Codes(
 		context.Background(),
-		&wasmtypes.QueryCodesRequest{},
+		&wasmtypes.QueryCodesRequest{
+			Pagination: &query.PageRequest{
+				Reverse: true,
+			},
+		},
 	)
-	codeID := codes.CodeInfos[len(codes.CodeInfos)-1].CodeID
+	codeID := codes.CodeInfos[0].CodeID
 
 	// init contract
-	instantiateMsg := CosignerInstantiateMsg{PubKeys: [][]byte{priv2.PubKey().Bytes()}}
-	instantiateMsgBz, err := json.Marshal(instantiateMsg)
+	//	instantiateMsg := CosignerInstantiateMsg{PubKeys: [][]byte{priv2.PubKey().Bytes()}}
+	//	instantiateMsgBz, err := json.Marshal(instantiateMsg)
 
 	initMsg := &wasmtypes.MsgInstantiateContract{
 		Sender: accAddress.String(),
 		CodeID: codeID,
-		Label:  "co-signer",
+		Label:  "contract",
 		Msg:    instantiateMsgBz,
 	}
 	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(

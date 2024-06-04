@@ -35,7 +35,11 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 			//spendLimitContractAddress := "osmo1nvz4e7duzmchyk4res6tdlpxpxrl9nps6vl2htlevu0a59chdarsvds5d8"
 			//spendLimitContractAddress := "osmo1mf5dnx0wqv7s4v9r4ykkr7tr249pctjwxs4me5n96tch37p95ccsc3zehq"
 			//spendLimitContractAddress := "osmo133290w5vgjttasqhmqcw2x9g598vg6re8lw0q0jwljlep44xvfhsp04ev8"
-			spendLimitContractAddress := "osmo19meazu70q77tzt9vzrp7d8pqf7wupcvfjqtmdtnkjqe9e0f2r5ds2er9l9"
+			//spendLimitContractAddress := "osmo19meazu70q77tzt9vzrp7d8pqf7wupcvfjqtmdtnkjqe9e0f2r5ds2er9l9"
+			//spendLimitContractAddress := "osmo1f7drukwape7d320sjvp6trmdk7wju908373pwjn979nazjj20cwqc3rdm8"
+			//spendLimitContractAddress := "osmo1heq8u26kn0vgf8rltxj5cqtfrwu5eggsncztjt0560mmj0ak2rrqga6rek"
+			//spendLimitContractAddress := "osmo16el87tfzcqwaeqra7e5y3hxdxg2j5g8ypfd0pmukuxg822lh5rcqhugu7d"
+			spendLimitContractAddress := "osmo13j8kuxnszx9mcl5lkl92eusnx2229krlfqzpuzzt4tqvmaphzpzq6le6ge"
 
 			log.Printf("Starting spend limit authenticator flow")
 			log.Printf("Adding spend limit authenticator")
@@ -125,16 +129,16 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 			}
 
 			log.Printf("Removing spend limit authenticator")
-			err = as.RemoveLatestAuthenticator(
-				conn,
-				encCfg,
-				seedConfig.ChainID,
-				alice,
-				alice,
-			)
-			if err != nil {
-				return err
-			}
+			//err = as.RemoveLatestAuthenticator(
+			//	conn,
+			//	encCfg,
+			//	seedConfig.ChainID,
+			//	alice,
+			//	alice,
+			//)
+			//if err != nil {
+			//	return err
+			//}
 
 			return nil
 		},

@@ -21,7 +21,7 @@ func StartBankSendFlow(seedConfig config.SeedConfig) *cobra.Command {
 
 			alice := seedConfig.Keys[0]
 			bob := seedConfig.Keys[1]
-			charlie := seedConfig.Keys[2]
+			//charlie := seedConfig.Keys[2]
 
 			cosigners := make(map[int][]cryptotypes.PrivKey)
 			cosigners[1] = []cryptotypes.PrivKey{alice, bob}
@@ -44,29 +44,29 @@ func StartBankSendFlow(seedConfig config.SeedConfig) *cobra.Command {
 				selectedAuthenticator,
 				OsmoDenom,
 				AtomIBCDenom,
-				10000000,
+				100000000000,
 			)
 			if err != nil {
 				return err
 			}
 
 			log.Printf("Bank send from alice to charlie")
-			err = bank.SendTokens(
-				conn,
-				encCfg,
-				seedConfig.ChainID,
-				alice,
-				charlie,
-				alice,
-				cosigners,
-				selectedAuthenticator,
-				OsmoDenom,
-				AtomIBCDenom,
-				10000000,
-			)
-			if err != nil {
-				return err
-			}
+			//	err = bank.SendTokens(
+			//		conn,
+			//		encCfg,
+			//		seedConfig.ChainID,
+			//		alice,
+			//		charlie,
+			//		alice,
+			//		cosigners,
+			//		selectedAuthenticator,
+			//		OsmoDenom,
+			//		AtomIBCDenom,
+			//		10000000,
+			//	)
+			//	if err != nil {
+			//		return err
+			//	}
 
 			return nil
 		},

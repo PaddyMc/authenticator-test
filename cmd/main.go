@@ -6,6 +6,7 @@ import (
 
 	auctionSeed "github.com/osmosis-labs/autenticator-test/cmd/seed/auction"
 	as "github.com/osmosis-labs/autenticator-test/cmd/seed/auth"
+	bankSeed "github.com/osmosis-labs/autenticator-test/cmd/seed/bank"
 	cls "github.com/osmosis-labs/autenticator-test/cmd/seed/cl"
 	gov "github.com/osmosis-labs/autenticator-test/cmd/seed/gov"
 	vs "github.com/osmosis-labs/autenticator-test/cmd/seed/staking"
@@ -21,7 +22,6 @@ const (
 	TestKeyUser1                 = "48d23cc417a30674e907a2403f109f082d92e197823d02e6a423c6aeb8e41204"
 	TestKeyUser2                 = "6e67cda92a2ffa21242e8a01e03f93d13b8b3b3094e75e58fee480f16f98855a"
 	TestKeyUser3                 = "40fc464087a28a93e697615f9585af7d763c8bd4b9cd50412c19c74fa501af41"
-
 	// TestUser4 is not in the auth store
 	TestKeyUser4         = "3d23af3840f0535863518fa8bbb8b98a231aa0bd2eb181911bfd8930f0ada7f9"
 	AccountAddressPrefix = "osmo"
@@ -35,8 +35,8 @@ const (
 	EdgeChainID = "smartaccount"
 	EdgeAddress = "164.92.247.225:9090"
 
-	TestnetChainID = "osmo-test-5"
-	TestnetAddress = "164.92.184.79:9090"
+	//	TestnetChainID = "osmo-test-5"
+	//	TestnetAddress = "164.92.184.79:9090"
 
 	//	MainChainID = "osmosis-1"
 	//	LocalAddress = ":9090"
@@ -93,14 +93,14 @@ func NewRootCmd() *cobra.Command {
 	edge2Cmd := SetUpCmds("edge2", Edge2ChainID, Edge2Address)
 
 	// testnet commands
-	testnetCmd := SetUpCmds("testnet", TestnetChainID, TestnetAddress)
+	//	testnetCmd := SetUpCmds("testnet", TestnetChainID, TestnetAddress)
 
 	// ROOT command
 	rootCmd.AddCommand(
 		localCmd,
 		edgeCmd,
 		edge2Cmd,
-		testnetCmd,
+		//		testnetCmd,
 	)
 
 	return rootCmd
@@ -137,6 +137,11 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		Short: "auction has a seeds that run to interact with the auction module",
 	}
 
+	bankCmd := &cobra.Command{
+		Use:   "bank",
+		Short: "bank has a seeds that run to interact with the bank module",
+	}
+
 	conf := config.SetUp(
 		chainID,
 		address,
@@ -156,10 +161,15 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		as.SeedRemoveAllAuthenticators(conf),
 		as.SeedCreateCosigner(conf),
 		as.StartActivateSmartAccountFlow(conf),
+		as.StartUploadSpendLimitFlow(conf),
 	)
 
 	auctionCmd.AddCommand(
 		auctionSeed.StartAuctionFlow(conf),
+	)
+
+	bankCmd.AddCommand(
+		bankSeed.StartBankSendFlow(conf),
 	)
 
 	clCmd.AddCommand(
@@ -181,6 +191,7 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		clCmd,
 		stakingCmd,
 		govCmd,
+		bankCmd,
 	)
 
 	return cmd
