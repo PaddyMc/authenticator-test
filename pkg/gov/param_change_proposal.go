@@ -2,7 +2,6 @@ package gov
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
@@ -37,17 +36,17 @@ func ParameterChangeProposal(
 	txClient := txtypes.NewServiceClient(conn)
 	ac := auth.NewQueryClient(conn)
 	govClient := govv1beta1.NewQueryClient(conn)
-	paramsClient := proposal.NewQueryClient(conn)
+	//	paramsClient := proposal.NewQueryClient(conn)
 
-	subspaces, err := paramsClient.Subspaces(
-		context.Background(),
-		&proposal.QuerySubspacesRequest{},
-	)
-	fmt.Println(subspaces)
+	//	subspaces, err := paramsClient.Subspaces(
+	//		context.Background(),
+	//		&proposal.QuerySubspacesRequest{},
+	//	)
+	//	fmt.Println(subspaces)
 
 	changeParamMsg, err := govv1beta1.NewMsgSubmitProposal(
 		paramChange,
-		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: sdk.NewInt(2000000000)}},
+		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: sdk.NewInt(500000000)}},
 		accAddress,
 	)
 	if err != nil {

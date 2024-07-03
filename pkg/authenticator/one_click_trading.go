@@ -66,6 +66,8 @@ func CreateOneClickTradingAccount(
 
 	jsonString := fmt.Sprintf(
 		`{"time_limit": {"end": "%d"}, "reset_period": "day", "limit": "10000000000"}`, future.UnixNano())
+	//jsonString := fmt.Sprintf(
+	//	`{"pubkey":"000000000000000000000000"}`, future.UnixNano())
 	encodedParams := base64.StdEncoding.EncodeToString([]byte(jsonString))
 	initDataSpendLimit := authenticator.SubAuthenticatorInitData{
 		Type: "CosmwasmAuthenticatorV1",
@@ -77,10 +79,23 @@ func CreateOneClickTradingAccount(
 		Type:   "MessageFilter",
 		Config: []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSwapExactAmountIn"}`),
 	}
+	initDataMessageFilterRoute := authenticator.SubAuthenticatorInitData{
+		Type:   "MessageFilter",
+		Config: []byte(`{"@type":"/osmosis.poolmanager.v1beta1.MsgSplitRouteSwapExactAmountIn"}`),
+	}
+	compositeAuthDataAll := []authenticator.SubAuthenticatorInitData{
+		initDataMessageFilter,
+		initDataMessageFilterRoute,
+	}
+	dataAnyOf, err := json.Marshal(compositeAuthDataAll)
+	initDataAnyOfAuthenticator := authenticator.SubAuthenticatorInitData{
+		Type:   "AnyOf",
+		Config: dataAnyOf,
+	}
 	compositeAuthData := []authenticator.SubAuthenticatorInitData{
 		initDataPrivKey0,
 		initDataSpendLimit,
-		initDataMessageFilter,
+		initDataAnyOfAuthenticator,
 	}
 
 	dataAllOf, err := json.Marshal(compositeAuthData)

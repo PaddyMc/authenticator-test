@@ -40,11 +40,6 @@ func UploadAndInstantiateContract(
 	ac := auth.NewQueryClient(conn)
 	wasmClient := wasmtypes.NewQueryClient(conn)
 
-	instantiateMsgBz, err := os.ReadFile(instantiateMsgPath)
-	if err != nil {
-		panic(err)
-	}
-
 	// "./cw_authenticators/cosigner_authenticator.wasm"
 	wasm, err := os.ReadFile(contractLocation)
 	if err != nil {
@@ -95,30 +90,37 @@ func UploadAndInstantiateContract(
 	//	instantiateMsg := CosignerInstantiateMsg{PubKeys: [][]byte{priv2.PubKey().Bytes()}}
 	//	instantiateMsgBz, err := json.Marshal(instantiateMsg)
 
-	initMsg := &wasmtypes.MsgInstantiateContract{
-		Sender: accAddress.String(),
-		CodeID: codeID,
-		Label:  "contract",
-		Msg:    instantiateMsgBz,
-	}
-	err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
-		[]cryptotypes.PrivKey{signerKey},
-		[]cryptotypes.PrivKey{signerKey},
-		make(map[int][]cryptotypes.PrivKey),
-		encCfg,
-		ac,
-		txClient,
-		chainID,
-		[]sdk.Msg{initMsg},
-		[]uint64{},
-	)
+	if instantiateMsgPath != "" {
+		instantiateMsgBz, err := os.ReadFile(instantiateMsgPath)
+		if err != nil {
+			panic(err)
+		}
+		initMsg := &wasmtypes.MsgInstantiateContract{
+			Sender: accAddress.String(),
+			CodeID: codeID,
+			Label:  "contract",
+			Msg:    instantiateMsgBz,
+		}
+		err = chaingrpc.SignAndBroadcastAuthenticatorMsgMultiSigners(
+			[]cryptotypes.PrivKey{signerKey},
+			[]cryptotypes.PrivKey{signerKey},
+			make(map[int][]cryptotypes.PrivKey),
+			encCfg,
+			ac,
+			txClient,
+			chainID,
+			[]sdk.Msg{initMsg},
+			[]uint64{},
+		)
 
-	contracts, err := wasmClient.ContractsByCode(
-		context.Background(),
-		&wasmtypes.QueryContractsByCodeRequest{CodeId: codeID},
-	)
-	contractAddress := contracts.Contracts[len(contracts.Contracts)-1]
-	log.Println("Contract address: ", contractAddress)
+		contracts, err := wasmClient.ContractsByCode(
+			context.Background(),
+			&wasmtypes.QueryContractsByCodeRequest{CodeId: codeID},
+		)
+		contractAddress := contracts.Contracts[len(contracts.Contracts)-1]
+		log.Println("Contract address: ", contractAddress)
+
+	}
 
 	return nil
 }

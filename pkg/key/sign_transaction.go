@@ -65,8 +65,8 @@ func SignAuthenticatorMsg(
 	txBytes, err := SignAuthenticatorMsgWithHeight(
 		gen,
 		msgs,
-		sdk.Coins{sdk.NewInt64Coin("uosmo", 15000)},
-		6000000,
+		sdk.Coins{sdk.NewInt64Coin("uosmo", 30_000)},
+		12000000,
 		chainID,
 		accNums,
 		accSeqs,

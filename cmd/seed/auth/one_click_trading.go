@@ -38,8 +38,9 @@ func SeedCreateOneClickTradingAccount(seedConfig config.SeedConfig) *cobra.Comma
 			//spendLimitContractAddress := "osmo19meazu70q77tzt9vzrp7d8pqf7wupcvfjqtmdtnkjqe9e0f2r5ds2er9l9"
 			//spendLimitContractAddress := "osmo1f7drukwape7d320sjvp6trmdk7wju908373pwjn979nazjj20cwqc3rdm8"
 			//spendLimitContractAddress := "osmo1heq8u26kn0vgf8rltxj5cqtfrwu5eggsncztjt0560mmj0ak2rrqga6rek"
-			//spendLimitContractAddress := "osmo16el87tfzcqwaeqra7e5y3hxdxg2j5g8ypfd0pmukuxg822lh5rcqhugu7d"
-			spendLimitContractAddress := "osmo13j8kuxnszx9mcl5lkl92eusnx2229krlfqzpuzzt4tqvmaphzpzq6le6ge"
+			//spendLimitContractAddress := "osmo1rjq8g7mzeu99f7vlsg2c3htxnjnue5zv02j4xynl4yhe2q8r7ycscfur62"
+			//spendLimitContractAddress := "osmo13j8kuxnszx9mcl5lkl92eusnx2229krlfqzpuzzt4tqvmaphzpzq6le6ge"
+			spendLimitContractAddress := "osmo1rjq8g7mzeu99f7vlsg2c3htxnjnue5zv02j4xynl4yhe2q8r7ycscfur62"
 
 			log.Printf("Starting spend limit authenticator flow")
 			log.Printf("Adding spend limit authenticator")

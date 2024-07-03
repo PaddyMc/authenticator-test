@@ -35,8 +35,8 @@ const (
 	EdgeChainID = "smartaccount"
 	EdgeAddress = "164.92.247.225:9090"
 
-	//	TestnetChainID = "osmo-test-5"
-	//	TestnetAddress = "164.92.184.79:9090"
+	TestnetChainID = "osmo-test-5"
+	TestnetAddress = "142.93.175.50:9090"
 
 	//	MainChainID = "osmosis-1"
 	//	LocalAddress = ":9090"
@@ -93,14 +93,14 @@ func NewRootCmd() *cobra.Command {
 	edge2Cmd := SetUpCmds("edge2", Edge2ChainID, Edge2Address)
 
 	// testnet commands
-	//	testnetCmd := SetUpCmds("testnet", TestnetChainID, TestnetAddress)
+	testnetCmd := SetUpCmds("testnet", TestnetChainID, TestnetAddress)
 
 	// ROOT command
 	rootCmd.AddCommand(
 		localCmd,
 		edgeCmd,
 		edge2Cmd,
-		//		testnetCmd,
+		testnetCmd,
 	)
 
 	return rootCmd
@@ -162,6 +162,9 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		as.SeedCreateCosigner(conf),
 		as.StartActivateSmartAccountFlow(conf),
 		as.StartUploadSpendLimitFlow(conf),
+		as.StartUpdateSmartAccountControllerFlow(conf),
+		as.StartSmartAccountDeactivatedFlow(conf),
+		as.StartPenetrationTest(conf),
 	)
 
 	auctionCmd.AddCommand(
@@ -183,6 +186,7 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 
 	govCmd.AddCommand(
 		gov.StartGovernanceFlow(conf),
+		gov.StartWasmUploadAddressFlow(conf),
 	)
 
 	cmd.AddCommand(

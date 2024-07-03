@@ -38,11 +38,11 @@ func GovMessageProposal(
 
 	govMsg, err := govv1.NewMsgSubmitProposal(
 		msgs,
-		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: sdk.NewInt(2000000000)}},
+		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: sdk.NewInt(500000000)}},
 		accAddress.String(),
-		"title",
-		"metadata",
-		"summary",
+		"Add wasm upload address",
+		"Adding wasm upload address",
+		"Wasm upload address",
 		false,
 	)
 	if err != nil {
