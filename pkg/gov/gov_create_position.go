@@ -17,12 +17,12 @@ import (
 	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/osmosis-labs/osmosis/osmomath"
-	"github.com/osmosis-labs/osmosis/v24/app/params"
-	clmodel "github.com/osmosis-labs/osmosis/v24/x/concentrated-liquidity/model"
-	cltypes "github.com/osmosis-labs/osmosis/v24/x/concentrated-liquidity/types"
+	"github.com/osmosis-labs/osmosis/v25/app/params"
+	clmodel "github.com/osmosis-labs/osmosis/v25/x/concentrated-liquidity/model"
+	cltypes "github.com/osmosis-labs/osmosis/v25/x/concentrated-liquidity/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
-	poolmanagergrpc "github.com/osmosis-labs/osmosis/v24/x/poolmanager/client/queryproto"
+	poolmanagergrpc "github.com/osmosis-labs/osmosis/v25/x/poolmanager/client/queryproto"
 )
 
 func GovCreateClPosition(
@@ -127,7 +127,7 @@ func GovCreateClPosition(
 
 	msg, err := govv1.NewMsgSubmitProposal(
 		[]sdk.Msg{createCLPositionMsg},
-		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: sdk.NewInt(2000000000)}},
+		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: osmomath.NewInt(2000000000)}},
 		accAddress.String(),
 		p.Metadata,
 		p.Title,

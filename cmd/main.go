@@ -10,6 +10,7 @@ import (
 	cls "github.com/osmosis-labs/autenticator-test/cmd/seed/cl"
 	gov "github.com/osmosis-labs/autenticator-test/cmd/seed/gov"
 	vs "github.com/osmosis-labs/autenticator-test/cmd/seed/staking"
+	ts "github.com/osmosis-labs/autenticator-test/cmd/seed/takerfee"
 	"github.com/osmosis-labs/autenticator-test/pkg/config"
 
 	"github.com/spf13/cobra"
@@ -45,17 +46,20 @@ const (
 )
 
 var DefaultDenoms = map[string]string{
-	"OsmoDenom":     "uosmo",
-	"IonDenom":      "uion",
-	"StakeDenom":    "stake",
-	"AtomDenom":     "uatom",
-	"DaIBCiDenom":   "ibc/0CD3A0285E1341859B5E86B6AB7682F023D03E97607CCC1DC95706411D866DF7",
-	"OsmoIBCDenom":  "ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518",
-	"StakeIBCDenom": "ibc/C053D637CCA2A2BA030E2C5EE1B28A16F71CCB0E45E8BE52766DC1B241B7787",
-	"UstIBCDenom":   "ibc/BE1BB42D4BE3C30D50B68D7C41DB4DFCE9678E8EF8C539F6E6A9345048894FCC",
-	"LuncIBCDenom":  "ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0",
-	"AtomIBCDenom":  "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2",
-	"UsdcIBCDenom":  "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4",
+	"OsmoDenom":        "uosmo",
+	"IonDenom":         "uion",
+	"StakeDenom":       "stake",
+	"AtomDenom":        "uatom",
+	"DaIBCiDenom":      "ibc/0CD3A0285E1341859B5E86B6AB7682F023D03E97607CCC1DC95706411D866DF7",
+	"OsmoIBCDenom":     "ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518",
+	"StakeIBCDenom":    "ibc/C053D637CCA2A2BA030E2C5EE1B28A16F71CCB0E45E8BE52766DC1B241B7787",
+	"UstIBCDenom":      "ibc/BE1BB42D4BE3C30D50B68D7C41DB4DFCE9678E8EF8C539F6E6A9345048894FCC",
+	"LuncIBCDenom":     "ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0",
+	"AtomIBCDenom":     "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2",
+	"UsdcIBCDenom":     "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4",
+	"nBTCIBCDenom":     "ibc/75345531D87BD90BF108BE7240BD721CB2CB0A1F16D4EBA71B09EC3C43E15C8F",
+	"wBTCFactoryDenom": "factory/osmo1z0qrq605sjgcqpylfl4aa6s90x738j7m58wyatt0tdzflg2ha26q67k743/wbtc",
+	"wBTCAXLDenom":     "ibc/D1542AA8762DB13087D8364F3EA6509FD6F009A34F00426AF9E4F9FA85CBBF1F",
 }
 
 const (
@@ -142,6 +146,11 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		Short: "bank has a seeds that run to interact with the bank module",
 	}
 
+	tfCmd := &cobra.Command{
+		Use:   "takerfee",
+		Short: "takerfee has a seeds that run to interact with the takerfees",
+	}
+
 	conf := config.SetUp(
 		chainID,
 		address,
@@ -189,6 +198,11 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		gov.StartWasmUploadAddressFlow(conf),
 	)
 
+	tfCmd.AddCommand(
+		ts.StartTakerFeeActivationFlow(conf),
+		ts.SeedSwapToEarnTakerFeeCmd(conf),
+	)
+
 	cmd.AddCommand(
 		authenticatorCmd,
 		auctionCmd,
@@ -196,6 +210,7 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		stakingCmd,
 		govCmd,
 		bankCmd,
+		tfCmd,
 	)
 
 	return cmd

@@ -1,6 +1,7 @@
 package chain
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -16,8 +17,8 @@ import (
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 
-	"github.com/osmosis-labs/osmosis/v24/app/params"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v24/x/smart-account/types"
+	"github.com/osmosis-labs/osmosis/v25/app/params"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v25/x/smart-account/types"
 )
 
 // SignMsg signs an sdk.Message with a given private key, account number and account sequence
@@ -99,6 +100,8 @@ func SignAuthenticatorMsgWithHeight(
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	memo := simulation.RandStringOfLength(r, simulation.RandIntBetween(r, 0, 100))
 	signMode := gen.SignModeHandler().DefaultMode()
+	protoSignMode, _ := authsigning.APISignModeToInternal(signMode)
+	//signBytes, err := authsigning.GetSignBytesAdapter(ctx, sigModeHandler, signing.SignMode_SIGN_MODE_DIRECT, signerDataOld, tx)
 
 	// 1st round: set SignatureV2 with empty signatures, to set correct
 	// signer infos.
@@ -106,7 +109,7 @@ func SignAuthenticatorMsgWithHeight(
 		sigs[i] = signing.SignatureV2{
 			PubKey: p.PubKey(),
 			Data: &signing.SingleSignatureData{
-				SignMode: signMode,
+				SignMode: protoSignMode,
 			},
 			Sequence: accSeqs[i],
 		}
@@ -149,10 +152,23 @@ func SignAuthenticatorMsgWithHeight(
 			AccountNumber: accNums[i],
 			Sequence:      accSeqs[i],
 		}
-		signBytes, err := gen.SignModeHandler().GetSignBytes(
-			signMode,
+
+		tx := txBuilder.GetTx()
+
+		// signBytes, err := gen.SignModeHandler().GetSignBytes(
+		//
+		//	context.Background(),
+		//	signMode,
+		//	signerData,
+		//	tx,
+		//
+		// )
+		signBytes, _ := authsigning.GetSignBytesAdapter(
+			context.Background(),
+			gen.SignModeHandler(),
+			protoSignMode,
 			signerData,
-			txBuilder.GetTx(),
+			tx,
 		)
 		if err != nil {
 			return nil, err
@@ -179,7 +195,7 @@ func SignAuthenticatorMsgWithHeight(
 			sigs[i] = signing.SignatureV2{
 				PubKey: signers[i].PubKey(),
 				Data: &signing.SingleSignatureData{
-					SignMode:  signMode,
+					SignMode:  protoSignMode,
 					Signature: compoundSigData,
 				},
 				Sequence: accSeqs[i],

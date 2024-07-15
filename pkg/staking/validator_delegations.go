@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc"
 
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/osmosis-labs/osmosis/v24/app/params"
+	"github.com/osmosis-labs/osmosis/v25/app/params"
 )
 
 func GetValidatorDelegations(

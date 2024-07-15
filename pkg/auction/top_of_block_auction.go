@@ -6,7 +6,7 @@ import (
 
 	grpc "google.golang.org/grpc"
 
-	tmservice "github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
+	cmtservice "github.com/cosmos/cosmos-sdk/client/grpc/cmtservice"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -14,12 +14,12 @@ import (
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/osmosis-labs/osmosis/osmomath"
-	"github.com/osmosis-labs/osmosis/v24/app/params"
+	"github.com/osmosis-labs/osmosis/v25/app/params"
 
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
-	poolmanagertypes "github.com/osmosis-labs/osmosis/v24/x/poolmanager/types"
-	auctiontypes "github.com/skip-mev/block-sdk/x/auction/types"
+	poolmanagertypes "github.com/osmosis-labs/osmosis/v25/x/poolmanager/types"
+	auctiontypes "github.com/skip-mev/block-sdk/v2/x/auction/types"
 )
 
 func SubmitTopOfBlockAuction(
@@ -38,7 +38,7 @@ func SubmitTopOfBlockAuction(
 
 	txClient := txtypes.NewServiceClient(conn)
 	ac := auth.NewQueryClient(conn)
-	tm := tmservice.NewServiceClient(conn)
+	tm := cmtservice.NewServiceClient(conn)
 	bankClient := banktypes.NewQueryClient(conn)
 
 	//eleValAddr, _ := sdk.ValAddressFromBech32(valOpAddr)
@@ -110,7 +110,7 @@ func SubmitTopOfBlockAuction(
 	//	sequenceOffset := uint64(1)
 	bidMsg := &auctiontypes.MsgAuctionBid{
 		Bidder:       accAddress.String(),
-		Bid:          sdk.NewCoin(AuctionUSDCDenom, sdk.NewInt(1000000)),
+		Bid:          sdk.NewCoin(AuctionUSDCDenom, osmomath.NewInt(1000000)),
 		Transactions: bundle,
 	}
 

@@ -6,13 +6,13 @@ import (
 	"log"
 	"time"
 
-	tmservice "github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
+	cmtservice "github.com/cosmos/cosmos-sdk/client/grpc/cmtservice"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	key "github.com/osmosis-labs/autenticator-test/pkg/key"
-	"github.com/osmosis-labs/osmosis/v24/app/params"
+	"github.com/osmosis-labs/osmosis/v25/app/params"
 )
 
 func SignAndBroadcastAuthenticatorMsgMultiSigners(
@@ -111,7 +111,7 @@ func SignAndBroadcastAuthenticatorMsgMultiSignersWithBlock(
 	signerPrivKeys []cryptotypes.PrivKey,
 	cosignerPrivKeys map[int][]cryptotypes.PrivKey,
 	encCfg params.EncodingConfig,
-	tm tmservice.ServiceClient,
+	tm cmtservice.ServiceClient,
 	ac authtypes.QueryClient,
 	txClient txtypes.ServiceClient,
 	chainID string,
@@ -146,7 +146,7 @@ func SignAndBroadcastAuthenticatorMsgMultiSignersWithBlock(
 		accSeqs = append(accSeqs, acc.GetSequence())
 	}
 
-	block, err := tm.GetLatestBlock(context.Background(), &tmservice.GetLatestBlockRequest{})
+	block, err := tm.GetLatestBlock(context.Background(), &cmtservice.GetLatestBlockRequest{})
 	if err != nil {
 		return err
 	}

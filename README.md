@@ -1,12 +1,10 @@
-# Authenticator CLI tool
+# Osmosis test tool
 
-This repository contains a Go client used to interact with the Osmosis authenticator module, designed to facilitate testing and integration with third-party signers.
+This repository contains a Go client used to interact with the Osmosis node, designed to facilitate testing and integration.
 
-For detailed information, please refer to the [Osmosis Smart Accounts documentation](https://github.com/osmosis-labs/osmosis/tree/feat/smart-accounts).
+## Overview of the osmosis test tool
 
-## Overview of the Authenticator test tool
-
-The `osmosis-test` tool is designed to test integration with third-party signers and the authenticator module in the Osmosis blockchain. It provides a range of commands to simulate various transaction flows involving smart accounts and cosigners.
+The `osmosis-test` tool is designed to test integration with the Osmosis blockchain. It provides a range of commands to simulate various transaction flows involving blockchain transactions smart accounts and cosigners.
 
 ### Available Commands
 
@@ -67,7 +65,7 @@ Then stop the node and run:
 osmosisd in-place-testnet edgenet osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj --trigger-testnet-upgrade v24
 ```
 
-Wait for the upgrade error, checkout the latest upgrade and run:
+Wait for the upgrade consensus error log, checkout the latest upgrade and run:
 ```
 osmosisd start --home=$HOME/.osmosisd --p2p.persistent_peers "" --p2p.seeds "" --rpc.unsafe --grpc.enable --grpc-web.enable
 ```

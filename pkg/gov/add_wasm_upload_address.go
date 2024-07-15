@@ -15,7 +15,8 @@ import (
 	//	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/cosmos/cosmos-sdk/x/params/types/proposal"
-	"github.com/osmosis-labs/osmosis/v24/app/params"
+	"github.com/osmosis-labs/osmosis/osmomath"
+	"github.com/osmosis-labs/osmosis/v25/app/params"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -47,7 +48,7 @@ func AddWasmAddressProposal(
 
 	changeParamMsg, err := govv1beta1.NewMsgSubmitProposal(
 		paramChange,
-		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: sdk.NewInt(2000000000)}},
+		sdk.Coins{sdk.Coin{Denom: "uosmo", Amount: osmomath.NewInt(2000000000)}},
 		accAddress,
 	)
 	if err != nil {
