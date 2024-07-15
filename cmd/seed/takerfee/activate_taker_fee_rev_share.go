@@ -38,35 +38,35 @@ func StartTakerFeeActivationFlow(seedConfig config.SeedConfig) *cobra.Command {
 
 			//alloyedBTCPoolContract := "osmo1z6r6qdknhgsc0zeracktgpcxf43j6sekq07nw8sxduc9lg0qjjlqfu25e3"
 			nBTCDenom := seedConfig.DenomMap["nBTCIBCDenom"]
-			//			wBTCFactoryDenom := seedConfig.DenomMap["wBTCFactoryDenom"]
-			//			wBTCAXLDenom := seedConfig.DenomMap["wBTCAXLDenom"]
-			//			alloyedBTCPoolId := uint64(1868)
+			wBTCFactoryDenom := seedConfig.DenomMap["wBTCFactoryDenom"]
+			wBTCAXLDenom := seedConfig.DenomMap["wBTCAXLDenom"]
+			alloyedBTCPoolId := uint64(1868)
 
-			//		setRegisteredAlloyedPoolMsg := &poolmanagertypes.MsgSetRegisteredAlloyedPool{
-			//			Sender: govAddr,
-			//			PoolId: alloyedBTCPoolId,
-			//		}
+			setRegisteredAlloyedPoolMsg := &poolmanagertypes.MsgSetRegisteredAlloyedPool{
+				Sender: govAddr,
+				PoolId: alloyedBTCPoolId,
+			}
 
-			//		setTakerFeeRevShareWBTCMsg := &poolmanagertypes.MsgSetTakerFeeShareAgreementForDenom{
-			//			Sender:      govAddr,
-			//			Denom:       wBTCFactoryDenom,
-			//			SkimPercent: osmomath.MustNewDecFromStr("0.1"),
-			//			SkimAddress: smartAccountAddr,
-			//		}
-
-			//		setTakerFeeRevShareWBTCaxlMsg := &poolmanagertypes.MsgSetTakerFeeShareAgreementForDenom{
-			//			Sender:      govAddr,
-			//			Denom:       wBTCAXLDenom,
-			//			SkimPercent: osmomath.MustNewDecFromStr("0.1"),
-			//			SkimAddress: smartAccountAddr,
-			//		}
-
-			setTakerFeeRevSharenBTCMsg := &poolmanagertypes.MsgSetTakerFeeShareAgreementForDenom{
+			setTakerFeeRevShareWBTCMsg := &poolmanagertypes.MsgSetTakerFeeShareAgreementForDenom{
 				Sender:      govAddr,
-				Denom:       nBTCDenom,
+				Denom:       wBTCFactoryDenom,
 				SkimPercent: osmomath.MustNewDecFromStr("0.1"),
 				SkimAddress: smartAccountAddr,
 			}
+
+			setTakerFeeRevShareWBTCaxlMsg := &poolmanagertypes.MsgSetTakerFeeShareAgreementForDenom{
+				Sender:      govAddr,
+				Denom:       wBTCAXLDenom,
+				SkimPercent: osmomath.MustNewDecFromStr("0.1"),
+				SkimAddress: smartAccountAddr,
+			}
+
+			//	setTakerFeeRevSharenBTCMsg := &poolmanagertypes.MsgSetTakerFeeShareAgreementForDenom{
+			//		Sender:      govAddr,
+			//		Denom:       nBTCDenom,
+			//		SkimPercent: osmomath.MustNewDecFromStr("0.1"),
+			//		SkimAddress: smartAccountAddr,
+			//	}
 
 			log.Printf("Setting taker fee rev share for nBTC")
 			err := gov.GovMessageProposal(
@@ -76,7 +76,7 @@ func StartTakerFeeActivationFlow(seedConfig config.SeedConfig) *cobra.Command {
 				alice,
 				bob,
 				alice,
-				[]sdk.Msg{setTakerFeeRevSharenBTCMsg /*setRegisteredAlloyedPoolMsg, setTakerFeeRevShareWBTCMsg, setTakerFeeRevShareWBTCaxlMsg*/},
+				[]sdk.Msg{setRegisteredAlloyedPoolMsg, setTakerFeeRevShareWBTCMsg, setTakerFeeRevShareWBTCaxlMsg},
 			)
 			if err != nil {
 				return err
