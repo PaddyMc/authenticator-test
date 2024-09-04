@@ -25,5 +25,11 @@ echo -e ✅ Snapshot downloaded successfully.
 # Run the node
 osmosisd start --home=$HOME/.osmosisd
 
-# osmosisd in-place-testnet edgenet osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj --trigger-testnet-upgrade v25
-# osmosisd start --home=$HOME/.osmosisd --p2p.persistent_peers "" --p2p.seeds "" --rpc.unsafe --grpc.enable --grpc-web.enable
+# Wait for at least 1 block
+killall osmosisd
+
+# Make sure you're on v25
+osmosisd in-place-testnet edgenet osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj --trigger-testnet-upgrade v26
+
+# Run to run migrations
+osmosisd start --home=$HOME/.osmosisd --p2p.persistent_peers "" --p2p.seeds "" --rpc.unsafe --grpc.enable --grpc-web.enable

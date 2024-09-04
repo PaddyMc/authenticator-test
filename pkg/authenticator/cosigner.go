@@ -13,9 +13,9 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
-	"github.com/osmosis-labs/osmosis/v25/x/smart-account/authenticator"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v25/x/smart-account/types"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
+	"github.com/osmosis-labs/osmosis/v26/x/smart-account/authenticator"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v26/x/smart-account/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -105,9 +105,9 @@ func CreateCosignerAccount(
 	// This is the final state of the authenticator that will be sent to the chain
 	dataCompositeComplex, err := json.Marshal(compositeComplex)
 	addAllOfAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
-		Sender: accAddress.String(),
-		Type:   "AllOf",
-		Data:   dataCompositeComplex,
+		Sender:            accAddress.String(),
+		AuthenticatorType: "AllOf",
+		Data:              dataCompositeComplex,
 	}
 
 	log.Println("Adding authenticator for account", accAddress.String(), "first authenticator")

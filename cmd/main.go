@@ -9,6 +9,7 @@ import (
 	bankSeed "github.com/osmosis-labs/autenticator-test/cmd/seed/bank"
 	cls "github.com/osmosis-labs/autenticator-test/cmd/seed/cl"
 	gov "github.com/osmosis-labs/autenticator-test/cmd/seed/gov"
+	orderbooks "github.com/osmosis-labs/autenticator-test/cmd/seed/orderbook"
 	vs "github.com/osmosis-labs/autenticator-test/cmd/seed/staking"
 	ts "github.com/osmosis-labs/autenticator-test/cmd/seed/takerfee"
 	"github.com/osmosis-labs/autenticator-test/pkg/config"
@@ -27,7 +28,7 @@ const (
 	TestKeyUser4         = "3d23af3840f0535863518fa8bbb8b98a231aa0bd2eb181911bfd8930f0ada7f9"
 	AccountAddressPrefix = "osmo"
 
-	LocalChainID = "edgenet"
+	LocalChainID = "osmosis-1"
 	LocalAddress = "localhost:9090"
 
 	Edge2ChainID = "edgenet"
@@ -151,6 +152,11 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		Short: "takerfee has a seeds that run to interact with the takerfees",
 	}
 
+	orderbookCmd := &cobra.Command{
+		Use:   "orderbook",
+		Short: "orderbook has a seeds that run to interact with the onchain orderbooks",
+	}
+
 	conf := config.SetUp(
 		chainID,
 		address,
@@ -203,6 +209,10 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		ts.SeedSwapToEarnTakerFeeCmd(conf),
 	)
 
+	orderbookCmd.AddCommand(
+		orderbooks.SeedBatchClaimOrdersFromAllOrderbooks(conf),
+	)
+
 	cmd.AddCommand(
 		authenticatorCmd,
 		auctionCmd,
@@ -211,6 +221,7 @@ func SetUpCmds(cmdName, chainID, address string) *cobra.Command {
 		govCmd,
 		bankCmd,
 		tfCmd,
+		orderbookCmd,
 	)
 
 	return cmd

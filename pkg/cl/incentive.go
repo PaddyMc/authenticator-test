@@ -11,9 +11,9 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/types/query"
 
-	"github.com/osmosis-labs/osmosis/v25/app/params"
-	clproto "github.com/osmosis-labs/osmosis/v25/x/concentrated-liquidity/client/queryproto"
-	clmodel "github.com/osmosis-labs/osmosis/v25/x/concentrated-liquidity/model"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
+	clproto "github.com/osmosis-labs/osmosis/v26/x/concentrated-liquidity/client/queryproto"
+	clmodel "github.com/osmosis-labs/osmosis/v26/x/concentrated-liquidity/model"
 )
 
 // CheckAllIncentiveAccumulatorForPools prints all incentive accumulmator info for all cl pools

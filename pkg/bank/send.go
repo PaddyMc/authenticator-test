@@ -14,9 +14,9 @@ import (
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/osmosis-labs/osmosis/osmomath"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
 
-	authenticatortypes "github.com/osmosis-labs/osmosis/v25/x/smart-account/types"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v26/x/smart-account/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
