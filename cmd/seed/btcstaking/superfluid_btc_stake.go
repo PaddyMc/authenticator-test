@@ -83,12 +83,6 @@ func StartTakerFeeActivationFlow(seedConfig config.SeedConfig) *cobra.Command {
 				return err
 			}
 
-			log.Printf("Please wait for the gov prop to pass then query the node with:")
-			log.Printf("osmosisd query poolmanager all-taker-fee-share-agreements --node %s", seedConfig.GRPCConnection.Target())
-			log.Printf("osmosisd query poolmanager taker-fee-share-agreement-from-denom %s --node %s", nBTCDenom, seedConfig.GRPCConnection.Target())
-			log.Printf("osmosisd query poolmanager all-taker-fee-share-accumulators --node %s", seedConfig.GRPCConnection.Target())
-			log.Printf("osmosisd query poolmanager all-registered-alloyed-pools --node %s", seedConfig.GRPCConnection.Target())
-
 			return nil
 		},
 	}

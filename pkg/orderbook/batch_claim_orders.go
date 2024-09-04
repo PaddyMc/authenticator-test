@@ -15,7 +15,7 @@ import (
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
 )
 
 func ClaimLimitOrders(
@@ -50,7 +50,19 @@ func ClaimLimitOrders(
 
 	for _, contractAddress := range contractsByCodeResp.Contracts {
 		log.Printf("Claiming limit orders for contract %s", contractAddress)
+
+		//	quertSmartResp, err := wasmClient.QuertSmart(
+		//		context.Background(),
+		//		&wasmtypes.QueryContractsByCodeRequest{
+		//			CodeId: codeId,
+		//		},
+		//		// TODO: maybe add some pagination
+		//	)
+		if err != nil {
+			return err
+		}
 		// TODO: get all orders by tick
+		// NOTE: https://github.com/osmosis-labs/orderbook/blob/main/contracts/sumtree-orderbook/src/msg.rs#L69-L143
 		// e.g
 		//     #[returns(TicksResponse)]
 		// 		 AllTicks {

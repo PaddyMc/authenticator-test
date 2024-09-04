@@ -28,7 +28,7 @@ const (
 	TestKeyUser4         = "3d23af3840f0535863518fa8bbb8b98a231aa0bd2eb181911bfd8930f0ada7f9"
 	AccountAddressPrefix = "osmo"
 
-	LocalChainID = "edgenet"
+	LocalChainID = "osmosis-1"
 	LocalAddress = "localhost:9090"
 
 	Edge2ChainID = "edgenet"

@@ -14,11 +14,11 @@ import (
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/osmosis-labs/osmosis/osmomath"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
 
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
-	poolmanagertypes "github.com/osmosis-labs/osmosis/v25/x/poolmanager/types"
+	poolmanagertypes "github.com/osmosis-labs/osmosis/v26/x/poolmanager/types"
 	auctiontypes "github.com/skip-mev/block-sdk/v2/x/auction/types"
 )
 

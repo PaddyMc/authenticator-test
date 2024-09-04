@@ -12,8 +12,8 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v25/x/smart-account/types"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v26/x/smart-account/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -48,9 +48,9 @@ func CreateSignatureVerificationAuthenticator(
 	log.Println("Number of authenticators:", len(allAuthenticatorsResp.AccountAuthenticators))
 
 	addAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
-		Sender: accAddress.String(),
-		Type:   "SignatureVerification",
-		Data:   priv2.PubKey().Bytes(),
+		Sender:            accAddress.String(),
+		AuthenticatorType: "SignatureVerification",
+		Data:              priv2.PubKey().Bytes(),
 	}
 
 	log.Println("Adding authenticator for account", accAddress.String(), "first authenticator.")

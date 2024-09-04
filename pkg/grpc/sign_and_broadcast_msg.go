@@ -12,7 +12,7 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	key "github.com/osmosis-labs/autenticator-test/pkg/key"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
 )
 
 func SignAndBroadcastAuthenticatorMsgMultiSigners(

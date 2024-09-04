@@ -19,7 +19,7 @@ import (
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
 )
 
 func UploadAndInstantiateContract(

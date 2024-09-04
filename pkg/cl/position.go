@@ -16,11 +16,11 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
 	"github.com/osmosis-labs/osmosis/osmomath"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
-	clproto "github.com/osmosis-labs/osmosis/v25/x/concentrated-liquidity/client/queryproto"
-	clmodel "github.com/osmosis-labs/osmosis/v25/x/concentrated-liquidity/model"
-	cltypes "github.com/osmosis-labs/osmosis/v25/x/concentrated-liquidity/types"
-	poolmanagergrpc "github.com/osmosis-labs/osmosis/v25/x/poolmanager/client/queryproto"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
+	clproto "github.com/osmosis-labs/osmosis/v26/x/concentrated-liquidity/client/queryproto"
+	clmodel "github.com/osmosis-labs/osmosis/v26/x/concentrated-liquidity/model"
+	cltypes "github.com/osmosis-labs/osmosis/v26/x/concentrated-liquidity/types"
+	poolmanagergrpc "github.com/osmosis-labs/osmosis/v26/x/poolmanager/client/queryproto"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )

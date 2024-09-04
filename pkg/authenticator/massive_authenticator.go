@@ -12,9 +12,9 @@ import (
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/osmosis-labs/osmosis/v25/app/params"
-	"github.com/osmosis-labs/osmosis/v25/x/smart-account/authenticator"
-	authenticatortypes "github.com/osmosis-labs/osmosis/v25/x/smart-account/types"
+	"github.com/osmosis-labs/osmosis/v26/app/params"
+	"github.com/osmosis-labs/osmosis/v26/x/smart-account/authenticator"
+	authenticatortypes "github.com/osmosis-labs/osmosis/v26/x/smart-account/types"
 
 	chaingrpc "github.com/osmosis-labs/autenticator-test/pkg/grpc"
 )
@@ -76,9 +76,9 @@ func CreateMassiveAuthenticator(
 
 	dataAllOf, err := json.Marshal(compositeFoulAll)
 	addAllOfAuthenticatorMsg := &authenticatortypes.MsgAddAuthenticator{
-		Sender: accAddress.String(),
-		Type:   "AllOf",
-		Data:   dataAllOf,
+		Sender:            accAddress.String(),
+		AuthenticatorType: "AllOf",
+		Data:              dataAllOf,
 	}
 
 	log.Println("Adding authenticator for account", accAddress.String(), "first authenticator")
