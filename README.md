@@ -71,3 +71,19 @@ osmosisd start --home=$HOME/.osmosisd --p2p.persistent_peers "" --p2p.seeds "" -
 ```
 
 This will upgrade the node to the lastest migration and also have mainnet state that useful for testing
+
+### FAQ
+
+1. Signature verification failed
+
+If you see this, check that `LocalChainID` in `main.go` is correct.
+```bash
+2024/07/25 22:59:02 activate_taker_fee_rev_share.go:38: Starting rev share taker fee flow
+2024/07/25 22:59:02 activate_taker_fee_rev_share.go:74: Setting taker fee rev share for nBTC
+2024/07/25 22:59:02 sign_and_broadcast_msg.go:29: Signing and broadcasting message flow
+2024/07/25 22:59:02 sign_and_broadcast_msg.go:52: Signer account: osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj sequence: 0
+2024/07/25 22:59:02 sign_and_broadcast_msg.go:82: Transaction Hash: A265E0F96EA828A787FAE2E4BF676919FE4E171149544737EF934F1E064279D9
+2024/07/25 22:59:02 sign_and_broadcast_msg.go:84: Transaction failed reason: signature verification failed; please verify account number (2799189) and chain-id (localosmosis): (unable to verify single signer signature): unauthorized
+```
+
+
