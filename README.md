@@ -60,12 +60,12 @@ Run:
 ./start_mainnet_state.sh
 ```
 
-Then stop the node and run:
+Then stop the node and run the following command using current node version. Note: replace `edgenet` with your preferred chain id, and `v26` with currernt mainnet node version + 1
 ```
-osmosisd in-place-testnet edgenet osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj --trigger-testnet-upgrade v24
+osmosisd in-place-testnet edgenet osmo12smx2wdlyttvyzvzg54y2vnqwq2qjateuf7thj --trigger-testnet-upgrade v26
 ```
 
-Wait for the upgrade consensus error log, checkout the latest upgrade and run:
+Wait for the upgrade consensus error log, e.g. `ERR UPGRADE "v26" NEEDED at height: 20476456:  module=server`, checkout the latest upgrade (current node version + 1), and run:
 ```
 osmosisd start --home=$HOME/.osmosisd --p2p.persistent_peers "" --p2p.seeds "" --rpc.unsafe --grpc.enable --grpc-web.enable
 ```
@@ -76,7 +76,7 @@ This will upgrade the node to the lastest migration and also have mainnet state 
 
 1. Signature verification failed
 
-If you see this, check that `LocalChainID` in `main.go` is correct.
+If you see this, check that `LocalChainID` in `main.go` is correct. In the above example, `LocalChainID` should be `edgenet`.
 ```bash
 2024/07/25 22:59:02 activate_taker_fee_rev_share.go:38: Starting rev share taker fee flow
 2024/07/25 22:59:02 activate_taker_fee_rev_share.go:74: Setting taker fee rev share for nBTC
